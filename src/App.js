@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import BigCalendar from 'calendar'
+import BigCalendar from 'react-big-calendar'
 import moment from 'moment';
 
 
