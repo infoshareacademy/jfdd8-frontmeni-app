@@ -1,20 +1,39 @@
 import React, { Component } from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Icon, Menu } from 'semantic-ui-react'
+
 
 class NavBar extends Component {
-  state = { activeItem: 'bio' };
+  state = {};
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   render() {
     const { activeItem } = this.state;
 
     return (
-      <Menu tabular>
-        <Menu.Item name='bio' active={activeItem === 'bio'} onClick={this.handleItemClick} />
-        <Menu.Item name='photos' active={activeItem === 'photos'} onClick={this.handleItemClick} />
+      <Menu size='small'>
+        <Menu.Item name='food' active={activeItem === 'food'} onClick={this.handleItemClick}>
+          <Icon name='food' size='large'/>
+          Food
+        </Menu.Item>
+
+        <Menu.Item name='video camera' active={activeItem === 'video camera'} onClick={this.handleItemClick}>
+          <Icon name='video camera' />
+          Channels
+        </Menu.Item>
+
+        <Menu.Item name='Calorie table' active={activeItem === 'Calorie table'} onClick={this.handleItemClick}>
+          <Icon name='table' />
+          Calorie table
+        </Menu.Item>
+
+        <Menu.Item name='setting' active={activeItem === 'setting'} onClick={this.handleItemClick}>
+          <Icon name='setting' />
+          Settings
+        </Menu.Item>
       </Menu>
     )
   }
 }
+
 export default NavBar;
