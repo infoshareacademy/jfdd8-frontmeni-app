@@ -33,6 +33,11 @@ const ProfileCreator = () => (
       <Form.Field label='zip' control='input' />
       <Dropdown placeholder='Select Country' fluid search selection options={countryOptions} />
     </Form.Group>
+    <Form.Group>
+      <Form.Input placeholder='8 Wide' width={8} />
+      <Form.Input placeholder='6 Wide' width={6} />
+      <Form.Input placeholder='2 Wide' width={2} />
+    </Form.Group>
 
 
   </Form>
