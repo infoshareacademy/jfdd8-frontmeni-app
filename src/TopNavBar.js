@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { Menu } from 'semantic-ui-react'
+import logo from './app-logo/LO.png'
+import { Image } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 
  class TopNavBar extends Component {
   state = {};
@@ -12,31 +15,8 @@ import { Menu } from 'semantic-ui-react'
     return (
       <Menu stackable>
         <Menu.Item>
-          <img src='/logo.png' />
-        </Menu.Item>
-
-        <Menu.Item
-          name='features'
-          active={activeItem === 'features'}
-          onClick={this.handleItemClick}
-        >
-          Features
-        </Menu.Item>
-
-        <Menu.Item
-          name='testimonials'
-          active={activeItem === 'testimonials'}
-          onClick={this.handleItemClick}
-        >
-          Testimonials
-        </Menu.Item>
-
-        <Menu.Item
-          name='sign-in'
-          active={activeItem === 'sign-in'}
-          onClick={this.handleItemClick}
-        >
-          Sign-in
+          <Image src={logo} size='tiny' floated='left' as={Link} to={'/'}/>
+          {this.props.title}
         </Menu.Item>
       </Menu>
     )

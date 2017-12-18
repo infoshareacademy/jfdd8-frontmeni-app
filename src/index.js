@@ -7,23 +7,21 @@ import {
 } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
 import './index.css';
-import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import HomeScreen from "./HomeScreen";
 import FoodScreen from "./FoodScreen";
 import ExercisesScreen from "./ExercisesScreen";
 import CalorieTableScreen from "./CalorieTableScreen";
 import SettingsScreen from "./SettingsScreen";
 import NavBar from "./NavBar";
-import TopNavBar from "./TopNavBar";
 
 
 
 ReactDOM.render(
   <Router>
     <div>
-      <TopNavBar/>
       <Switch>
-        <Route exact path="/" component={App}/>
+        <Route exact path="/" component={HomeScreen}/>
         <Route exact path="/food" component={FoodScreen}/>
         <Route exact path="/exercises" component={ExercisesScreen}/>
         <Route exact path="/calories" component={CalorieTableScreen}/>

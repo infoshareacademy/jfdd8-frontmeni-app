@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
+import TopNavBar from "./TopNavBar";
 
 class FoodScreen extends Component {
   render() {
     return (
       <div>
+        <TopNavBar title="Customize your daily food"/>
         <table className="ui red table">
           <thead>
           <tr>
