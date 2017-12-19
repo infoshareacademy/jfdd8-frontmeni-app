@@ -15,6 +15,7 @@ import ExercisesScreen from "./ExercisesScreen";
 import CalorieTableScreen from "./CalorieTableScreen";
 import SettingsScreen from "./SettingsScreen";
 import NavBar from "./NavBar";
+import LoginScreen from './LoginScreen';
 
 
 
@@ -22,7 +23,8 @@ ReactDOM.render(
   <Router>
     <div>
       <Switch>
-        <Route exact path="/" component={HomeScreen}/>
+        <Route exact path="/" component={LoginScreen}/>
+        <Route exact path="/home" component={HomeScreen}/>
         <Route exact path="/food" component={FoodScreen}/>
         <Route exact path="/exercises" component={ExercisesScreen}/>
         <Route exact path="/calories" component={CalorieTableScreen}/>
