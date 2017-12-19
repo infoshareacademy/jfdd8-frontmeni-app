@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import TopNavBar from "./TopNavBar";
+import Calendar from "./Calendar";
 
 
 class HomeScreen extends Component {
@@ -7,6 +8,7 @@ class HomeScreen extends Component {
     return (
       <div>
         <TopNavBar title="Home"/>
+      <Calendar/>
 
       </div>
     )
