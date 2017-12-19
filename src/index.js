@@ -8,24 +8,29 @@ import {
 import 'semantic-ui-css/semantic.min.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './index.css';
-import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import Calendar from './Calendar';
+import HomeScreen from "./HomeScreen";
+import FoodScreen from "./FoodScreen";
+import ExercisesScreen from "./ExercisesScreen";
+import CalorieTableScreen from "./CalorieTableScreen";
+import SettingsScreen from "./SettingsScreen";
+import NavBar from "./NavBar";
+
 
 
 ReactDOM.render(
   <Router>
     <div>
-      <Calendar/>
-
       <Switch>
-        <Route exact path="/" component={App}/>
-
+        <Route exact path="/" component={HomeScreen}/>
+        <Route exact path="/food" component={FoodScreen}/>
+        <Route exact path="/exercises" component={ExercisesScreen}/>
+        <Route exact path="/calories" component={CalorieTableScreen}/>
+        <Route exact path="/settings" component={SettingsScreen}/>
       </Switch>
-
+      <NavBar/>
     </div>
-  </Router>,
-
-  document.getElementById('root')
+  </Router>
+  , document.getElementById('root')
 );
 registerServiceWorker();
