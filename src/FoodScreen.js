@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import TopNavBar from "./TopNavBar";
+import NavBar from "./NavBar";
 
 class FoodScreen extends Component {
   render() {
@@ -27,6 +28,7 @@ class FoodScreen extends Component {
           </tr>
           </tbody>
         </table>
+        <NavBar/>
       </div>
     )
 

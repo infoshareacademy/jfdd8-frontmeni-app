@@ -30,7 +30,6 @@ ReactDOM.render(
         <Route exact path="/calories" component={CalorieTableScreen}/>
         <Route exact path="/settings" component={SettingsScreen}/>
       </Switch>
-      <NavBar/>
     </div>
   </Router>
   , document.getElementById('root')
