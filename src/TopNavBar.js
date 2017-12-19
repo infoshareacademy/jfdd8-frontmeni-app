@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom'
     return (
       <Menu stackable>
         <Menu.Item>
-          <Image src={logo} size='tiny' floated='left' as={Link} to={'/'}/>
+          <Image src={logo} size='tiny' floated='left' as={Link} to={'/home'}/>
           {this.props.title}
         </Menu.Item>
       </Menu>
