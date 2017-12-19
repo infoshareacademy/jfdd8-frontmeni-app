@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import TopNavBar from "./TopNavBar";
+import NavBar from "./NavBar";
 
 
 
@@ -8,7 +9,7 @@ render() {
   return (
    <div>
      <TopNavBar title="Check calories"/>
-
+     <NavBar/>
    </div>
   )
 }
