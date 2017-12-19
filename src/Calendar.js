@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import events from './events';
+import  './index.css'
 
 BigCalendar.setLocalizer(
   BigCalendar.momentLocalizer(moment)
@@ -12,7 +13,7 @@ class Calendar extends Component {
 
   render() {
     return (
-      <BigCalendar
+      <BigCalendar className="Calendar"
 
         events={events}
 
