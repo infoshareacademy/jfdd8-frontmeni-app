@@ -3,7 +3,7 @@ import ProfileCreator from './ProfileCreator'
 
 class ProfileChecker extends Component {
   state = {
-    profile: null
+    profile: true
   }
 
   render() {
