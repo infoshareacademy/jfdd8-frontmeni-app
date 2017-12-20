@@ -3,7 +3,6 @@ import TopNavBar from "./TopNavBar";
 import NavBar from "./NavBar";
 
 
-
 class FoodScreen extends Component {
   render() {
     return (
