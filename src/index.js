@@ -14,14 +14,16 @@ import FoodScreen from "./FoodScreen";
 import ExercisesScreen from "./ExercisesScreen";
 import CalorieTableScreen from "./CalorieTableScreen";
 import SettingsScreen from "./SettingsScreen";
-import NavBar from "./NavBar";
 import LoginScreen from './LoginScreen';
+import ProfileCreator from "./ProfileCreator";
+import ProfileChecker from "./ProfileChecker";
 
 
 
 ReactDOM.render(
   <Router>
     <div>
+      <ProfileChecker>
       <Switch>
         <Route exact path="/" component={LoginScreen}/>
         <Route exact path="/home" component={HomeScreen}/>
@@ -29,7 +31,9 @@ ReactDOM.render(
         <Route exact path="/exercises" component={ExercisesScreen}/>
         <Route exact path="/calories" component={CalorieTableScreen}/>
         <Route exact path="/settings" component={SettingsScreen}/>
+        <Route exact path="/profile" component={ProfileCreator}/>
       </Switch>
+      </ProfileChecker>
     </div>
   </Router>
   , document.getElementById('root')
