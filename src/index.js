@@ -5,16 +5,17 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
-import 'semantic-ui-css/semantic.min.css';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
+// import 'semantic-ui-css/semantic.min.css';
+// import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
-import HomeScreen from "./HomeScreen";
-import FoodScreen from "./FoodScreen";
-import ExercisesScreen from "./ExercisesScreen";
-import CalorieTableScreen from "./CalorieTableScreen";
-import SettingsScreen from "./SettingsScreen";
-import NavBar from "./NavBar";
+// import HomeScreen from "./HomeScreen";
+// import FoodScreen from "./FoodScreen";
+// import ExercisesScreen from "./ExercisesScreen";
+// import CalorieTableScreen from "./CalorieTableScreen";
+// import SettingsScreen from "./SettingsScreen";
+// import NavBar from "./NavBar";
+import AddFE from './AddFE';
 
 
 
@@ -22,13 +23,13 @@ ReactDOM.render(
   <Router>
     <div>
       <Switch>
-        <Route exact path="/" component={HomeScreen}/>
-        <Route exact path="/food" component={FoodScreen}/>
-        <Route exact path="/exercises" component={ExercisesScreen}/>
-        <Route exact path="/calories" component={CalorieTableScreen}/>
-        <Route exact path="/settings" component={SettingsScreen}/>
+        <Route exact path="/" component={AddFE}/>
+        {/*<Route exact path="/food" component={FoodScreen}/>*/}
+        {/*<Route exact path="/exercises" component={ExercisesScreen}/>*/}
+        {/*<Route exact path="/calories" component={CalorieTableScreen}/>*/}
+        {/*<Route exact path="/settings" component={SettingsScreen}/>*/}
       </Switch>
-      <NavBar/>
+      {/*<NavBar/>*/}
     </div>
   </Router>
   , document.getElementById('root')
