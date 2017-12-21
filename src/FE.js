@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
+import AddFEForm from "./AddFEForm";
 
-class AddFE extends Component {
+class FE extends Component {
   state = {
     tasks: [
       {
@@ -24,9 +25,14 @@ class AddFE extends Component {
         isFood: false,
         isExercise: true
       }
-
     ]
-  }
+  };
+
+  onTaskAdded = (task) => {
+    this.setState({
+      tasks: this.state.tasks.concat([task])
+    });
+  };
 
   render() {
     return (
@@ -38,14 +44,16 @@ class AddFE extends Component {
               task => (
                 <li key={task.id}>
                   {task.content}
+                  {task.calories}
                 </li>
               )
             )
           }
         </ul>
+        <AddFEForm onTaskAdded={this.onTaskAdded}/>
       </div>
     )
   }
 }
 
-export default AddFE
+export default FE

@@ -15,7 +15,7 @@ import registerServiceWorker from './registerServiceWorker';
 // import CalorieTableScreen from "./CalorieTableScreen";
 // import SettingsScreen from "./SettingsScreen";
 // import NavBar from "./NavBar";
-import AddFE from './AddFE';
+import AddFE from './FE';
 
 
 
