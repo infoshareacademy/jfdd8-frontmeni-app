@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Dropdown, Button, Grid, Header, Image, Segment } from 'semantic-ui-react'
+import { Form, Button, Grid, Header, Image, Segment } from 'semantic-ui-react'
 import logo from './app-logo/LO.png'
 const countryOptions = [
   { key: 'eu', value: 'eu', flag: 'eu', text: 'Europe' },
@@ -26,7 +26,7 @@ const ProfileCreator = () => (
           {' '}Register your account
         </Header>
         <Form size='large'>
-          <Segment stacked>
+          <Segment>
             <Form.Input
               fluid
               icon='user'
@@ -60,16 +60,16 @@ const ProfileCreator = () => (
               placeholder='Weight in [kg]'
             />
             <Form.Select
-              fluid
+
               iconPosition='left'
               placeholder='Country'
               options={countryOptions}
             />
-            <Form.Group>
-              <Form.Input placeholder='8 Wide' width={4} />
-              <Form.Input placeholder='6 Wide' width={3} />
-              <Form.Input placeholder='2 Wide' width={1} />
-            </Form.Group>
+            <Form.Input
+              fluid
+              placeholder='Date of
+              birth [dd/mm/yyyy]'
+            />
 
             <Button className='button-style' color='black' fluid size='large'>Register</Button>
           </Segment>
