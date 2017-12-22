@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import TopNavBar from "./TopNavBar";
 import NavBar from "./NavBar";
-import FoodList from "./FoodList";
 import FoodRow from "./FoodRow";
 import AddFoodRow from "./AddFoodRow";
 
@@ -23,7 +22,7 @@ class FoodScreen extends Component {
         food => food.id !== foodId
       )
     })
-  }
+  };
 
   render() {
 
