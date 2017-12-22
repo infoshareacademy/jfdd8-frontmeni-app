@@ -9,7 +9,6 @@ class AddFoodRow extends Component {
     })
   };
 
-
   state = {
     name: '',
     calories: 0
@@ -28,7 +27,6 @@ class AddFoodRow extends Component {
     // console.log('check', event.keyCode, event.keyCode >= 48 && event.keyCode <= 57);
     // return event.keyCode >= 48 && event.keyCode <= 57;
   };
-
 
   render() {
     return (

@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 class FoodRow extends Component {
 
   handleRemoveClick = event => {
-    const foodId = event.target.dataset.foodId
+    const foodId = event.target.dataset.foodId;
     this.props.removeFood(foodId)
   };
 

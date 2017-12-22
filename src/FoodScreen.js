@@ -11,6 +11,10 @@ class FoodScreen extends Component {
   };
 
   newFood = (food) => {
+    if (food.name === "" ) {
+      return
+    }
+
     this.setState({
       foods: this.state.foods.concat({...food, id: Date.now().toString(16)})
     });
