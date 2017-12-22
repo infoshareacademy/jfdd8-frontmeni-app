@@ -10,11 +10,21 @@ class FoodScreen extends Component {
   state = {
     foods: []
   };
+
   newFood = (food) => {
     this.setState({
-      foods: this.state.foods.concat(food)
+      foods: this.state.foods.concat({...food, id: Date.now().toString(16)})
     });
   };
+
+  removeFood = foodId => {
+    this.setState({
+      foods: this.state.foods.filter(
+        food => food.id !== foodId
+      )
+    })
+  }
+
   render() {
 
     return (
@@ -29,9 +39,17 @@ class FoodScreen extends Component {
           </tr>
           </thead>
           <tbody>
-            {this.state.foods.map(function(food, idx) {
-              return <FoodRow name={food.name} calories={food.calories} key={idx}/>
-            })}
+            {this.state.foods.map(
+              (food) => (
+                <FoodRow
+                  key={food.id}
+                  id={food.id}
+                  name={food.name}
+                  calories={food.calories}
+                  removeFood={this.removeFood}
+                />
+              )
+            )}
           <AddFoodRow onNewFoodAdded={this.newFood}/>
           </tbody>
         </table>

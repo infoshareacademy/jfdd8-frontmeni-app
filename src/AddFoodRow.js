@@ -19,8 +19,16 @@ class AddFoodRow extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
-
   };
+
+  checkIfNumber = (event, foo, bar) => {
+    // if (event.keyCode >= 48 && event.keyCode <= 57){
+    //   event.stopImmediatePropagation();
+    // }
+    // console.log('check', event.keyCode, event.keyCode >= 48 && event.keyCode <= 57);
+    // return event.keyCode >= 48 && event.keyCode <= 57;
+  };
+
 
   render() {
     return (
@@ -30,7 +38,7 @@ class AddFoodRow extends Component {
           <input onChange={this.handleChange} value={this.state.name} name='name'/>
           </td>
           <td>
-          <input onChange={this.handleChange} value={this.state.calories} name='calories'/>
+          <input type="number" min="0" onChange={this.handleChange} value={this.state.calories} name='calories'/>
           </td>
           <td>
             <button onClick={this.onClick}>Submit</button>
