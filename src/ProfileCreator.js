@@ -30,19 +30,19 @@ const ProfileCreator = () => (
             <Form.Input
               fluid
               icon='user'
-              iconPosition='right'
+              iconPosition='left'
               placeholder='Name'
             />
             <Form.Input
               fluid
               icon='mail'
-              iconPosition='right'
+              iconPosition='left'
               placeholder='E-mail address'
             />
             <Form.Input
               fluid
               icon='lock'
-              iconPosition='right'
+              iconPosition='left'
               placeholder='Password'
               type='password'
             />
