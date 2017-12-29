@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Button, Grid, Header, Image, Segment } from 'semantic-ui-react'
+import { Form, Button, Grid, Header, Image, Segment, Message } from 'semantic-ui-react'
 import logo from './app-logo/LO.png'
 const countryOptions = [
   { key: 'eu', value: 'eu', flag: 'eu', text: 'Europe' },
@@ -74,6 +74,9 @@ const ProfileCreator = () => (
             <Button className='button-style' color='black' fluid size='large'>Register</Button>
           </Segment>
         </Form>
+        <Message>
+          Already have an account? <a color='black' href='/'>Sign In</a>
+        </Message>
       </Grid.Column>
     </Grid>
   </div>
