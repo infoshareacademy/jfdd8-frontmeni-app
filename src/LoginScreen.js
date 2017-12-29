@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 import logo from './app-logo/LO.png'
 import './index.css';
 
@@ -35,7 +36,7 @@ const LoginForm = () => (
           </Segment>
         </Form>
         <Message>
-          New to us? <a color='black' href='/profile'>Sign Up</a>
+          New to us? <Link to ='/profile' >Sign Up</Link>
         </Message>
       </Grid.Column>
     </Grid>

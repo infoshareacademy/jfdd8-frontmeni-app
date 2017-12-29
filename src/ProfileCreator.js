@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form, Button, Grid, Header, Image, Segment, Message } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 import logo from './app-logo/LO.png'
 const countryOptions = [
   { key: 'eu', value: 'eu', flag: 'eu', text: 'Europe' },
@@ -75,7 +76,7 @@ const ProfileCreator = () => (
           </Segment>
         </Form>
         <Message>
-          Already have an account? <a color='black' href='/'>Sign In</a>
+          Already have an account? <Link to ='/' >Sign In</Link>
         </Message>
       </Grid.Column>
     </Grid>
