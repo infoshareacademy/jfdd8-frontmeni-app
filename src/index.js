@@ -23,7 +23,7 @@ import LoginScreen from './LoginScreen';
 import ProfileCreator from "./ProfileCreator";
 import ProfileChecker from "./ProfileChecker";
 
-
+setupFirebase();
 
 ReactDOM.render(
   <Router>
