@@ -5,9 +5,14 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
+
 import 'semantic-ui-css/semantic.min.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+
 import './index.css';
+
+import setupFirebase from './setupFirebase'
+
 import registerServiceWorker from './registerServiceWorker';
 import HomeScreen from "./HomeScreen";
 import FoodScreen from "./FoodScreen";
@@ -18,7 +23,7 @@ import LoginScreen from './LoginScreen';
 import ProfileCreator from "./ProfileCreator";
 import ProfileChecker from "./ProfileChecker";
 
-
+setupFirebase();
 
 ReactDOM.render(
   <Router>
