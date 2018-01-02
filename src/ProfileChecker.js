@@ -1,16 +1,28 @@
 import React, { Component } from 'react'
 import ProfileCreator from './ProfileCreator'
+import LoginForm from "./LoginScreen";
+import firebase from 'firebase'
+
 
 class ProfileChecker extends Component {
   state = {
-    profile: true
+    user: null
+  };
+
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(
+      user => this.setState({ user })
+    )
   }
 
   render() {
     return (
-      <div>
-        { this.state.profile ? this.props.children : <ProfileCreator />}
-      </div>
+         this.state.user
+          ? this.props.children
+          : (<div>
+             <LoginForm />
+             <ProfileCreator/>
+             </div>)
     )
   }
 }
