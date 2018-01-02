@@ -3,6 +3,8 @@ import { Menu } from 'semantic-ui-react'
 import logo from './app-logo/LO.png'
 import { Image } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import firebase from 'firebase'
+
 
  class TopNavBar extends Component {
   state = {};
@@ -17,6 +19,9 @@ import { Link } from 'react-router-dom'
         <Menu.Item>
           <Image src={logo} size='tiny' floated='left' as={Link} to={'/home'}/>
           {this.props.title}
+        </Menu.Item>
+        <Menu.Item onClick={() => firebase.auth().signOut()}>
+          Sign Out
         </Menu.Item>
       </Menu>
     )
