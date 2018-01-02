@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Menu, Icon } from 'semantic-ui-react'
 import logo from './app-logo/LO.png'
 import { Image } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
@@ -21,6 +21,7 @@ import firebase from 'firebase'
           {this.props.title}
         </Menu.Item>
         <Menu.Item onClick={() => firebase.auth().signOut()}>
+          <Icon name='log out'/>
           Sign Out
         </Menu.Item>
       </Menu>
