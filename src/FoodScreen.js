@@ -3,6 +3,7 @@ import TopNavBar from "./TopNavBar";
 import NavBar from "./NavBar";
 import FoodRow from "./FoodRow";
 import AddFoodRow from "./AddFoodRow";
+import firebase from 'firebase'
 
 
 class FoodScreen extends Component {
@@ -10,22 +11,25 @@ class FoodScreen extends Component {
     foods: []
   };
 
+  componentDidMount() {
+    const userUid = firebase.auth().currentUser.uid;
+    firebase.database().ref(`/foods/${userUid}`).on('value', snapshot => this.setState({
+      foods: Object.entries(snapshot.val() || {}).map(([key, value]) => ({ id: key, ...value}))
+    }))
+  }
+
   newFood = (food) => {
     if (food.name === "" ) {
       return
     }
 
-    this.setState({
-      foods: this.state.foods.concat({...food, id: Date.now().toString(16)})
-    });
+    const userUid = firebase.auth().currentUser.uid;
+    firebase.database().ref(`/foods/${userUid}`).push(food)
   };
 
   removeFood = foodId => {
-    this.setState({
-      foods: this.state.foods.filter(
-        food => food.id !== foodId
-      )
-    })
+    const userUid = firebase.auth().currentUser.uid;
+    firebase.database().ref(`/foods/${userUid}/${foodId}`).set(null)
   };
 
   render() {
