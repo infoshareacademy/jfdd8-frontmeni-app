@@ -22,11 +22,6 @@ class NavBar extends Component {
           Exercises
         </Menu.Item>
 
-        <Menu.Item name='Calorie table' active={activeItem === 'Calorie table'} as={Link} to={'/calories'}>
-          <Icon name='table'/>
-          Calorie table
-        </Menu.Item>
-
         <Menu.Item name='setting' active={activeItem === 'setting'} as={Link} to={'/settings'}>
           <Icon name='setting'/>
           Settings
