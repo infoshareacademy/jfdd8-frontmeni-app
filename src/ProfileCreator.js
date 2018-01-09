@@ -109,9 +109,9 @@ class ProfileCreator extends Component {
                 <Button className='button-style' color='black' fluid size='large'>Register</Button>
               </Segment>
             </Form>
-            <Message>
-              Already have an account? <Link to='/'>Sign In</Link>
-            </Message>
+            {/*<Message>*/}
+              {/*Already have an account? <Link to='/'>Sign In</Link>*/}
+            {/*</Message>*/}
           </Grid.Column>
         </Grid>
       </div>

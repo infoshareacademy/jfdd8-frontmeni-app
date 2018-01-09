@@ -30,13 +30,13 @@ ReactDOM.render(
     <div>
       <ProfileChecker>
         <Switch>
-          <Route exact path="/" component={LoginScreen}/>
-          <Route exact path="/home" component={HomeScreen}/>
+          {/*<Route exact path="/" component={LoginScreen}/>*/}
+          <Route exact path="/" component={HomeScreen}/>
           <Route exact path="/food" component={FoodScreen}/>
           <Route exact path="/exercises" component={ExercisesScreen}/>
           <Route exact path="/calories" component={CalorieTableScreen}/>
           <Route exact path="/settings" component={SettingsScreen}/>
-          <Route exact path="/profile" component={ProfileCreator}/>
+          {/*<Route exact path="/profile" component={ProfileCreator}/>*/}
         </Switch>
       </ProfileChecker>
     </div>

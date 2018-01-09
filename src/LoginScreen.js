@@ -66,9 +66,9 @@ class LoginForm extends Component {
             <Button className='button-style' color='black' fluid size='large'>Login</Button>
           </Segment>
         </Form>
-        <Message>
-          New to us? <Link to ='/profile' >Sign Up</Link>
-        </Message>
+        {/*<Message>*/}
+          {/*New to us? <Link to ='/profile' >Sign Up</Link>*/}
+        {/*</Message>*/}
       </Grid.Column>
     </Grid>
   </div>
