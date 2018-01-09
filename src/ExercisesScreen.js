@@ -19,13 +19,13 @@ class ExercisesScreen extends Component {
     }))
   }
 
-  newExercise = (exercises) => {
-    if (exercises.name === "" ) {
+  newExercise = (exercise) => {
+    if (exercise.name === "" ) {
       return
     }
 
     const userUid = firebase.auth().currentUser.uid;
-    firebase.database().ref(`/exercises/${userUid}`).push(exercises)
+    firebase.database().ref(`/exercises/${userUid}`).push(exercise)
   };
 
   removeExercise = exerciseId => {
@@ -52,8 +52,8 @@ class ExercisesScreen extends Component {
                 key={exercise.id}
                 id={exercise.id}
                 name={exercise.name}
-                calories={exercise.calories}
-                removeFood={this.removeExercise}
+                caloriesBurnt={exercise.caloriesBurnt}
+                removeExercise={this.removeExercise}
               />
             )
           )}

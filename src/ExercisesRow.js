@@ -5,7 +5,7 @@ class ExercisesRow extends Component {
 
   handleRemoveClick = event => {
     const exerciseId = event.target.dataset.exerciseId;
-    this.props.removeFood(exerciseId)
+    this.props.removeExercise(exerciseId)
   };
 
   render() {
