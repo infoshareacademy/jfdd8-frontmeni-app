@@ -13,18 +13,18 @@ class NavBar extends Component {
     return (
       <Menu size='small'>
         <Menu.Item name='food' active={activeItem === 'food'} as={Link} to={'/food'}>
-          Food
           <Icon name='food'/>
+          Food
         </Menu.Item>
 
         <Menu.Item name='heartbeat' active={activeItem === 'heartbeat'} as={Link} to={'/exercises'}>
-          Exercises
           <Icon name='heartbeat'/>
+          Exercises
         </Menu.Item>
 
         <Menu.Item name='Calorie table' active={activeItem === 'Calorie table'} as={Link} to={'/calories'}>
-          Calorie table
           <Icon name='table'/>
+          Calorie table
         </Menu.Item>
 
         <Menu.Item name='setting' active={activeItem === 'setting'} as={Link} to={'/settings'}>
