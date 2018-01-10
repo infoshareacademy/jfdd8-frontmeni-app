@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import {Form, Button, Grid, Header, Image, Segment, Message} from 'semantic-ui-react'
-import {Link} from 'react-router-dom'
 import logo from './app-logo/LO.png'
 import firebase from 'firebase'
-
 
 const countryOptions = [
   {key: 'pl', value: 'pl', flag: 'pl', text: 'Polska'},
@@ -55,8 +53,6 @@ class ProfileCreator extends Component {
 
   render() {
     return (
-
-
       <div className='login-form'>
         <Grid
           textAlign='center'
@@ -68,7 +64,9 @@ class ProfileCreator extends Component {
             <Header as='h2' textAlign='center' className='login-header'>
               {' '}Register your account
             </Header>
-            <p>{this.state.error}</p>
+            <Message negative hidden={this.state.error === null}>
+              <p>{this.state.error}</p>
+            </Message>
             <Form
               size='large'
               onSubmit={this.handleSubmit}>
@@ -135,9 +133,6 @@ class ProfileCreator extends Component {
                 <Button className='button-style' color='black' fluid size='large'>Register</Button>
               </Segment>
             </Form>
-            {/*<Message>*/}
-              {/*Already have an account? <Link to='/'>Sign In</Link>*/}
-            {/*</Message>*/}
           </Grid.Column>
         </Grid>
       </div>
