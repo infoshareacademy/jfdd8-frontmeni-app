@@ -10,7 +10,8 @@ class LoginForm extends Component {
 
   state = {
     email: '',
-    password: ''
+    password: '',
+    error: null
   };
 
   handleChange = event => {
@@ -25,6 +26,13 @@ class LoginForm extends Component {
     firebase.auth().signInWithEmailAndPassword(
       this.state.email,
       this.state.password
+    ).catch(
+      error => {
+        this.setState({
+          error: error.message
+        }
+        );
+      }
     )
   };
 
@@ -41,6 +49,9 @@ class LoginForm extends Component {
         <Header as='h2' textAlign='center' className='login-header'>
           {' '}Log-in to your account
         </Header>
+        <Message negative hidden={this.state.error === null}>
+          <p>{this.state.error}</p>
+        </Message>
         <Form
           size='large'
           onSubmit={this.handleSubmit}>
