@@ -21,22 +21,32 @@ class ProfileCreator extends Component {
 
   state = {
     email: '',
-    password: ''
+    password: '',
+
+
   };
 
-  handleChange = event => {
+  handleChange = (event, { name, value }) => {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name || name]: event.target.value || value
     })
   };
 
   handleSubmit = event => {
     event.preventDefault();
 
+    const { email, password, ...other} = this.state;
+
     firebase.auth().createUserWithEmailAndPassword(
-      this.state.email,
-      this.state.password
+      email,
+      password
+    ).then(
+      user => {
+        const userUid = user.uid;
+        firebase.database().ref('/users/' + userUid).set(other)
+      }
     )
+
   };
 
   render() {
@@ -63,6 +73,8 @@ class ProfileCreator extends Component {
                   icon='user'
                   iconPosition='left'
                   placeholder='Name'
+                  onChange={this.handleChange}
+                  name="user"
                 />
                 <Form.Input
                   fluid
@@ -85,25 +97,34 @@ class ProfileCreator extends Component {
                   fluid
                   placeholder='Gender'
                   options={genderOptions}
+                  onChange={this.handleChange}
+                  name="gender"
                 />
                 <Form.Input
                   fluid
                   placeholder='Height in [cm]'
+                  onChange={this.handleChange}
+                  name="height"
                 />
                 <Form.Input
                   fluid
                   placeholder='Weight in [kg]'
+                  onChange={this.handleChange}
+                  name="weight"
                 />
                 <Form.Select
-
                   iconPosition='left'
                   placeholder='Country'
                   options={countryOptions}
+                  onChange={this.handleChange}
+                  name="country"
                 />
                 <Form.Input
                   fluid
                   placeholder='Date of
-              birth [dd/mm/yyyy]'
+                  birth [dd/mm/yyyy]'
+                  onChange={this.handleChange}
+                  name="birth"
                 />
 
                 <Button className='button-style' color='black' fluid size='large'>Register</Button>

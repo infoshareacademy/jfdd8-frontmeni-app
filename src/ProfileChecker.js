@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ProfileCreator from './ProfileCreator'
+import ProfileCreator from './RegisterScreen'
 import LoginForm from "./LoginScreen"
 import firebase from 'firebase'
 import { Tab } from 'semantic-ui-react'

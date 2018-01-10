@@ -19,7 +19,7 @@ import FoodScreen from "./FoodScreen";
 import ExercisesScreen from "./ExercisesScreen";
 import SettingsScreen from "./SettingsScreen";
 import LoginScreen from './LoginScreen';
-import ProfileCreator from "./ProfileCreator";
+import ProfileCreator from "./RegisterScreen";
 import ProfileChecker from "./ProfileChecker";
 
 setupFirebase();
