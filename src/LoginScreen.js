@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
 import logo from './app-logo/LO.png'
 import firebase from 'firebase'
 
@@ -77,9 +76,6 @@ class LoginForm extends Component {
             <Button className='button-style' color='black' fluid size='large'>Login</Button>
           </Segment>
         </Form>
-        {/*<Message>*/}
-          {/*New to us? <Link to ='/profile' >Sign Up</Link>*/}
-        {/*</Message>*/}
       </Grid.Column>
     </Grid>
   </div>
