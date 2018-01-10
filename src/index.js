@@ -22,6 +22,7 @@ import SettingsScreen from "./SettingsScreen";
 import LoginScreen from './LoginScreen';
 import ProfileCreator from "./ProfileCreator";
 import ProfileChecker from "./ProfileChecker";
+// import ProgressBarInCalendar from './ProgressBarInCalendar'
 
 setupFirebase();
 
