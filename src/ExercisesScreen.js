@@ -28,10 +28,7 @@ class ExercisesScreen extends Component {
     firebase.database().ref(`/exercises/${userUid}`).push(exercise)
   };
 
-  removeExercise = exerciseId => {
-    const userUid = firebase.auth().currentUser.uid;
-    firebase.database().ref(`/exercises/${userUid}/${exerciseId}`).set(null)
-  };
+
 
   render() {
     return (
@@ -53,7 +50,6 @@ class ExercisesScreen extends Component {
                 id={exercise.id}
                 name={exercise.name}
                 caloriesBurnt={exercise.caloriesBurnt}
-                removeExercise={this.removeExercise}
               />
             )
           )}
