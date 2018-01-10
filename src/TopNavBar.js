@@ -9,10 +9,10 @@ import firebase from 'firebase'
  class TopNavBar extends Component {
   state = {};
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  // handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   render() {
-    const { activeItem } = this.state;
+    // const { activeItem } = this.state;
 
     return (
       <Menu stackable>
