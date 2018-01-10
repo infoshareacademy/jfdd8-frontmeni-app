@@ -26,7 +26,7 @@ class ProfileChecker extends Component {
          this.state.user
           ? this.props.children
           : (<div>
-             <Tab panes={panes} aligned='right'  defaultActiveIndex={1}/>
+             <Tab panes={panes} aligned='right'  defaultActiveIndex={0}/>
              </div>)
     )
   }
