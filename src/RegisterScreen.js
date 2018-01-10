@@ -78,6 +78,7 @@ class ProfileCreator extends Component {
                   placeholder='Name'
                   onChange={this.handleChange}
                   name="user"
+                  required
                 />
                 <Form.Input
                   fluid
@@ -108,12 +109,14 @@ class ProfileCreator extends Component {
                   placeholder='Height in [cm]'
                   onChange={this.handleChange}
                   name="height"
+                  required
                 />
                 <Form.Input
                   fluid
                   placeholder='Weight in [kg]'
                   onChange={this.handleChange}
                   name="weight"
+                  required
                 />
                 <Form.Select
                   iconPosition='left'
@@ -128,6 +131,7 @@ class ProfileCreator extends Component {
                   birth [dd/mm/yyyy]'
                   onChange={this.handleChange}
                   name="birth"
+                  required
                 />
 
                 <Button className='button-style' color='black' fluid size='large'>Register</Button>
