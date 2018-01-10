@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
 import logo from './app-logo/LO.png'
 import firebase from 'firebase'
 
@@ -10,7 +9,8 @@ class LoginForm extends Component {
 
   state = {
     email: '',
-    password: ''
+    password: '',
+    error: null
   };
 
   handleChange = event => {
@@ -25,6 +25,13 @@ class LoginForm extends Component {
     firebase.auth().signInWithEmailAndPassword(
       this.state.email,
       this.state.password
+    ).catch(
+      error => {
+        this.setState({
+          error: error.message
+        }
+        );
+      }
     )
   };
 
@@ -41,6 +48,9 @@ class LoginForm extends Component {
         <Header as='h2' textAlign='center' className='login-header'>
           {' '}Log-in to your account
         </Header>
+        <Message negative hidden={this.state.error === null}>
+          <p>{this.state.error}</p>
+        </Message>
         <Form
           size='large'
           onSubmit={this.handleSubmit}>
@@ -66,9 +76,6 @@ class LoginForm extends Component {
             <Button className='button-style' color='black' fluid size='large'>Login</Button>
           </Segment>
         </Form>
-        <Message>
-          New to us? <Link to ='/profile' >Sign Up</Link>
-        </Message>
       </Grid.Column>
     </Grid>
   </div>

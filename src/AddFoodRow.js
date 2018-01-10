@@ -39,7 +39,7 @@ class AddFoodRow extends Component {
           <input type="number" min="0" onChange={this.handleChange} value={this.state.calories} name='calories'/>
           </td>
           <td>
-            <button onClick={this.onClick}>Submit</button>
+            <button onClick={this.onClick}>Add</button>
           </td>
         </tr>
       </Fragment>
