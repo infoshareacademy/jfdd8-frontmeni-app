@@ -17,7 +17,7 @@ class Calendar extends Component {
         events={events}
 
         step={60}
-        defaultDate={new Date(2015, 3, 1)}
+        defaultDate={new Date(2018, 0, 8)}
       />
     )
   }
