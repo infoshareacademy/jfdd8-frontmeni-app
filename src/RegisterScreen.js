@@ -22,7 +22,7 @@ class ProfileCreator extends Component {
   state = {
     email: '',
     password: '',
-
+    error: null
 
   };
 
@@ -45,6 +45,10 @@ class ProfileCreator extends Component {
         const userUid = user.uid;
         firebase.database().ref('/users/' + userUid).set(other)
       }
+    ).catch(
+      error => this.setState({
+        error: error.message
+      })
     )
 
   };
@@ -64,6 +68,7 @@ class ProfileCreator extends Component {
             <Header as='h2' textAlign='center' className='login-header'>
               {' '}Register your account
             </Header>
+            <p>{this.state.error}</p>
             <Form
               size='large'
               onSubmit={this.handleSubmit}>
