@@ -134,7 +134,6 @@ class ProfileCreator extends Component {
                   required
                 />
                 <Form.Select
-                  iconPosition='left'
                   placeholder='Country'
                   options={countryOptions}
                   onChange={this.handleChange}
