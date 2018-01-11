@@ -20,11 +20,6 @@ import firebase from 'firebase'
           <Image src={logo} size='tiny' floated='left' as={Link} to={'/'}/>
           {this.props.title}
         </Menu.Item>
-        <Menu.Item
-          onClick={() => firebase.auth().signOut()}>
-          <Icon name='log out'/>
-          Sign Out
-        </Menu.Item>
       </Menu>
     )
   }
