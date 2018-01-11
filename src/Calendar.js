@@ -3,6 +3,7 @@ import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import events from './events';
 import ProgressBarInCalendar from './ProgressBarInCalendar'
+import ModalExampleMultiple from './MultipleModal'
 import { Modal, Button } from 'semantic-ui-react'
 
 
@@ -17,15 +18,15 @@ class Calendar extends Component {
   state = {
     showModal: false,
     modalEvent: null
-  };
+  }
 
   openModal = event => {
     this.setState({
       modalEvent: event,
       showModal: true
     })
-  };
-  closeModal = () => this.setState({ showModal: false });
+  }
+  closeModal = () => this.setState({ showModal: false })
 
   render() {
     return (
@@ -46,8 +47,7 @@ class Calendar extends Component {
             </select>
           </Modal.Content>
           <Modal.Actions>
-            <Button icon='add' content='add' onClick={this.closeModal} />
-            <Button icon='check' content='Close' onClick={this.closeModal} />
+            <Button icon='check' content='All Done' onClick={this.closeModal} />
           </Modal.Actions>
         </Modal>}
       <BigCalendar

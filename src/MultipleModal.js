@@ -1,51 +1,47 @@
-import React, { Component } from 'react'
-import { Button, Icon, Modal } from 'semantic-ui-react'
+import React, {Component} from 'react';
+import { Modal, Button } from 'semantic-ui-react'
 
-class NestedModal extends Component {
-  state = { open: false }
+class MultipleModal extends Component {
 
-  open = () => this.setState({ open: true })
-  close = () => this.setState({ open: false })
+  state = {
+    showModal: false,
+    modalEvent: null
+  };
+
+  openModal = event => {
+    this.setState({
+      modalEvent: event,
+      showModal: true
+    })
+  };
+  closeModal = () => this.setState({showModal: false});
 
   render() {
-    const { open } = this.state
-
     return (
-      <Modal
-        dimmer={false}
-        open={open}
-        onOpen={this.open}
-        onClose={this.close}
-        size='small'
-        trigger={<Button primary icon>Proceed <Icon name='right chevron' /></Button>}
-      >
-        <Modal.Header>Modal #2</Modal.Header>
-        <Modal.Content>
-          <p>That's everything!</p>
-        </Modal.Content>
-        <Modal.Actions>
-          <Button icon='check' content='All Done' onClick={this.close} />
-        </Modal.Actions>
-      </Modal>
+      <div>
+        {this.state.modalEvent && <Modal
+          dimmer={false}
+          open={this.state.showModal}
+          onOpen={this.openModal}
+          onClose={this.closeModal}
+          size='small'
+        >
+          <Modal.Header>{this.state.modalEvent.title} </Modal.Header>
+          <Modal.Content>
+            <select>
+              <option value="100">Apple</option>
+              <option value="200">Rice</option>
+            </select>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button icon='add' content='add' onClick={this.closeModal}/>
+            <Button icon='check' content='Close' onClick={this.closeModal}/>
+          </Modal.Actions>
+        </Modal>}
+
+      </div>
     )
   }
 }
 
-const ModalExampleMultiple = () => (
-  <Modal trigger={<Button>Multiple Modals</Button>}>
-    <Modal.Header>Modal #1</Modal.Header>
-    <Modal.Content image>
-      <div className='image'>
-        <Icon name='right arrow' />
-      </div>
-      <Modal.Description>
-        <p>We have more to share with you. Follow us along to modal 2</p>
-      </Modal.Description>
-    </Modal.Content>
-    <Modal.Actions>
-      <NestedModal />
-    </Modal.Actions>
-  </Modal>
-)
-
-export default ModalExampleMultiple
+export default MultipleModal
