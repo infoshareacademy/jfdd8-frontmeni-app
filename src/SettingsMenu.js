@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { Menu } from 'semantic-ui-react'
+import { Menu, Icon } from 'semantic-ui-react'
+import firebase from 'firebase'
+
 
 class SettingsMenu extends Component {
   state = { activeItem: 'account' }
@@ -11,9 +13,11 @@ class SettingsMenu extends Component {
 
     return (
       <Menu fluid vertical>
-        <Menu.Item name='run' active={activeItem === 'run'} onClick={this.handleItemClick} />
-        <Menu.Item name='walk' active={activeItem === 'walk'} onClick={this.handleItemClick} />
-        <Menu.Item name='bike' active={activeItem === 'bike'} onClick={this.handleItemClick} />
+        <Menu.Item onClick={() => firebase.auth().signOut()}>
+          <Icon name='log out'/>
+          Sign Out
+        </Menu.Item>
+        <Menu.Item name='BMI' active={activeItem === 'walk'} onClick={this.handleItemClick} />
       </Menu>
     )
   }
