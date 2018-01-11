@@ -17,7 +17,7 @@ import firebase from 'firebase'
     return (
       <Menu stackable>
         <Menu.Item>
-          <Image src={logo} size='tiny' floated='left' as={Link} to={'/home'}/>
+          <Image src={logo} size='tiny' floated='left' as={Link} to={'/'}/>
           {this.props.title}
         </Menu.Item>
         <Menu.Item onClick={() => firebase.auth().signOut()}>
