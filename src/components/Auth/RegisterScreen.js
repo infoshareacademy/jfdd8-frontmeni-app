@@ -1,7 +1,8 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import {Form, Button, Grid, Header, Image, Segment, Message} from 'semantic-ui-react'
-import logo from './app-logo/LO.png'
-import firebase from 'firebase'
+import logo from '../../app-logo/LO.png'
+import { connect } from 'react-redux'
+import { signUp } from '../../state/auth';
 
 const countryOptions = [
   {key: 'pl', value: 'pl', flag: 'pl', text: 'Polska'},
@@ -24,7 +25,7 @@ class ProfileCreator extends Component {
 
   };
 
-  handleChange = (event, {name, value}) => {
+  handleChange = (event, { name, value }) => {
     this.setState({
       [event.target.name || name]: event.target.value || value
     })
@@ -35,23 +36,19 @@ class ProfileCreator extends Component {
 
     const regex = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/
 
-    const {email, password, ...other} = this.state;
+    const { email, password, error, ...other} = this.state;
 
     if (!other.birth.match(regex)) {
       this.setState({
-        error: 'Naucz się dat!'
-      })
+        error: 'Date format is day/month/year!'
+      });
       return
     }
 
-    firebase.auth().createUserWithEmailAndPassword(
+    this.props.signUp(
       email,
-      password
-    ).then(
-      user => {
-        const userUid = user.uid;
-        firebase.database().ref('/users/' + userUid).set(other)
-      }
+      password,
+      other
     ).catch(
       error => this.setState({
         error: error.message
@@ -134,7 +131,6 @@ class ProfileCreator extends Component {
                   required
                 />
                 <Form.Select
-                  iconPosition='left'
                   placeholder='Country'
                   options={countryOptions}
                   onChange={this.handleChange}
@@ -158,4 +154,7 @@ class ProfileCreator extends Component {
   }
 }
 
-export default ProfileCreator
+export default connect(
+  null,
+  { signUp }
+)(ProfileCreator)
