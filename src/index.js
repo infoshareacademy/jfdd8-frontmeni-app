@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
+import {Provider} from 'react-redux'
 import {
   BrowserRouter as Router,
   Switch,
@@ -20,18 +20,18 @@ import Auth from "./components/Auth";
 
 ReactDOM.render(
   <Provider store={store}>
-  <Router>
-    <div>
-      <Auth>
+    <Router>
+      <div>
         <Switch>
-          <Route exact path="/" component={HomeScreen}/>
-          <Route exact path="/food" component={FoodScreen}/>
-          <Route exact path="/exercises" component={ExercisesScreen}/>
-          <Route exact path="/settings" component={SettingsScreen}/>
+          <Auth>
+            <Route exact path="/" component={HomeScreen}/>
+            <Route exact path="/food" component={FoodScreen}/>
+            <Route exact path="/exercises" component={ExercisesScreen}/>
+            <Route exact path="/settings" component={SettingsScreen}/>
+          </Auth>
         </Switch>
-      </Auth>
-    </div>
-  </Router>
+      </div>
+    </Router>
   </Provider>
   , document.getElementById('root')
 );
