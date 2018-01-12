@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import ProfileCreator from './RegisterScreen'
 import LoginForm from "./LoginScreen"
+import { connect } from 'react-redux'
 import firebase from 'firebase'
 import { Tab } from 'semantic-ui-react'
 
 const panes = [
   { menuItem: 'LOGIN', render: () => <Tab.Pane><LoginForm /></Tab.Pane> },
   { menuItem: 'REGISTER', render: () => <Tab.Pane><ProfileCreator/></Tab.Pane> },
-]
+];
 
 
-class ProfileChecker extends Component {
+class Auth extends Component {
   state = {
     user: null
   };
@@ -23,7 +24,7 @@ class ProfileChecker extends Component {
 
   render() {
     return (
-         this.state.user
+         this.state.user !== null
           ? this.props.children
           : (<div>
              <Tab panes={panes} aligned='right'  defaultActiveIndex={0}/>
@@ -32,4 +33,8 @@ class ProfileChecker extends Component {
   }
 }
 
-export default ProfileChecker
+export default connect(
+  state => ({
+    user: state.auth.user
+  })
+)(Auth)
