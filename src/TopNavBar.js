@@ -2,30 +2,34 @@ import React, { Component } from 'react'
 import { Menu, Icon } from 'semantic-ui-react'
 import logo from './app-logo/LO.png'
 import { Image } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
-import firebase from 'firebase'
-
+import { Link, withRouter } from 'react-router-dom'
+import { signOut } from './state/auth';
+import { connect } from 'react-redux'
 
  class TopNavBar extends Component {
   state = {};
 
-  // handleItemClick = (e, { name }) => this.setState({ activeItem: name });
-
   render() {
-    // const { activeItem } = this.state;
-
     return (
       <Menu stackable>
         <Menu.Item>
           <Image src={logo} size='tiny' floated='left' as={Link} to={'/'}/>
           {this.props.title}
         </Menu.Item>
-        <Menu.Item onClick={() => firebase.auth().signOut()}>
-          <Icon name='log out'/>
-          Sign Out
-        </Menu.Item>
+        {
+          this.props.user ?
+            <Menu.Item onClick={this.props.signOut}>
+              <Icon name='log out'/>
+              Sign Out
+            </Menu.Item> : null
+        }
       </Menu>
     )
   }
 }
-export default TopNavBar
+export default withRouter(connect(
+  state => ({
+    user: state.auth.user
+  }),
+  { signOut }
+)(TopNavBar))
