@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {Form, Button, Grid, Header, Image, Segment, Message} from 'semantic-ui-react'
-import logo from './app-logo/LO.png'
-import firebase from 'firebase'
+import logo from '../../app-logo/LO.png'
+import { connect } from 'react-redux'
+import { signUp } from '../../state/auth';
 
 const countryOptions = [
   {key: 'pl', value: 'pl', flag: 'pl', text: 'Polska'},
@@ -44,14 +45,10 @@ class ProfileCreator extends Component {
       return
     }
 
-    firebase.auth().createUserWithEmailAndPassword(
+    this.props.signUp(
       email,
-      password
-    ).then(
-      user => {
-        const userUid = user.uid;
-        firebase.database().ref('/users/' + userUid).set(other)
-      }
+      password,
+      other
     ).catch(
       error => this.setState({
         error: error.message
@@ -134,7 +131,6 @@ class ProfileCreator extends Component {
                   required
                 />
                 <Form.Select
-                  iconPosition='left'
                   placeholder='Country'
                   options={countryOptions}
                   onChange={this.handleChange}
@@ -158,4 +154,7 @@ class ProfileCreator extends Component {
   }
 }
 
-export default ProfileCreator
+export default connect(
+  null,
+  { signUp }
+)(ProfileCreator)

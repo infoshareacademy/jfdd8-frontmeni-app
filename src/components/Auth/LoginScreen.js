@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
-import logo from './app-logo/LO.png'
-import firebase from 'firebase'
+import logo from '../../app-logo/LO.png'
+import { connect } from 'react-redux'
+import { signIn } from '../../state/auth'
 
-import './index.css';
+import '../../index.css';
 
 class LoginForm extends Component {
 
@@ -22,7 +23,7 @@ class LoginForm extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    firebase.auth().signInWithEmailAndPassword(
+    this.props.signIn(
       this.state.email,
       this.state.password
     ).catch(
@@ -34,7 +35,6 @@ class LoginForm extends Component {
       }
     )
   };
-
   render() {
     return (
   <div className='login-form'>
@@ -83,4 +83,7 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm
+export default connect(
+  null,
+  { signIn }
+)(LoginForm)
