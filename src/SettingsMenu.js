@@ -4,20 +4,16 @@ import firebase from 'firebase'
 
 
 class SettingsMenu extends Component {
-  state = { activeItem: 'account' }
-
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   render() {
-    const { activeItem } = this.state
 
     return (
-      <Menu fluid vertical>
+      <Menu compact widths={2}>
         <Menu.Item onClick={() => firebase.auth().signOut()}>
           <Icon name='log out'/>
           Sign Out
         </Menu.Item>
-        <Menu.Item name='BMI' active={activeItem === 'walk'} onClick={this.handleItemClick} />
+        <Menu.Item name='BMI'/>
       </Menu>
     )
   }
