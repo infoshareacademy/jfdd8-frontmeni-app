@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Menu, Icon } from 'semantic-ui-react'
+import { Menu } from 'semantic-ui-react'
 import logo from './app-logo/LO.png'
 import { Image } from 'semantic-ui-react'
 import { Link, withRouter } from 'react-router-dom'
@@ -16,13 +16,6 @@ import { connect } from 'react-redux'
           <Image src={logo} size='tiny' floated='left' as={Link} to={'/'}/>
           {this.props.title}
         </Menu.Item>
-        {
-          this.props.user ?
-            <Menu.Item onClick={this.props.signOut}>
-              <Icon name='log out'/>
-              Sign Out
-            </Menu.Item> : null
-        }
       </Menu>
     )
   }
