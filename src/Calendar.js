@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
-import events from './events';
+import dietPlan from './dietPlan';
 import ProgressBarInCalendar from './ProgressBarInCalendar'
 import Multiple from './MultipleModal'
-import {Modal, Button} from 'semantic-ui-react'
-import {ProgressBar} from 'react-bootstrap';
+import {Modal, Button, Progress} from 'semantic-ui-react'
 
 
 BigCalendar.setLocalizer(
@@ -14,28 +13,18 @@ BigCalendar.setLocalizer(
 
 let allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k]);
 
-// const EventWrapper = props => (
-//   <ProgressBar>
-//     <ProgressBar striped bsStyle="success" now={35} key={1} />
-//     <ProgressBar bsStyle="warning" now={20} key={2} />
-//     <ProgressBar active bsStyle="danger" now={10} key={3} />
-//   </ProgressBar>
-// )
-//
-
-
 const EventWrapper = props => {
-  console.log('event wrapper props', props);
+
   return (
-    <ProgressBar>
-      {/*{*/}
-      {/*props.event.spendings && props.event.spendings.map(*/}
-      {/*spending => <ProgressBar striped bsStyle={spending.type} now={spending.value} key={1}/>*/}
-      {/*)*/}
-      }
-    </ProgressBar>
+    <div>
+      Exercises
+      <Progress percent={(props.event.exercise.reduce(
+        (total, next) => total + next.caloriesBurnt, 0
+      ) / 2000) * 100} inverted progress success/>
+
+    </div>
   )
-}
+};
 
 
 class Calendar extends Component {
@@ -54,16 +43,9 @@ class Calendar extends Component {
   closeModal = () => this.setState({showModal: false})
 
   render() {
-    // const groupedEvents = Object.entries(groupBy(this.state.dietPlan, event => event.start.getTime())).map(([key, value]) => ({
-    //   title: 'Foo',
-    //   start: new Date(parseInt(key)),
-    //   end: new Date(parseInt(key)),
-    //   allDay: true,
-    //   events: value
-    // }))
 
     return (
-      <div>
+      <div style={{height: 500}}>
         <ProgressBarInCalendar/>
         {this.state.modalEvent && <Modal
           dimmer={false}
@@ -86,7 +68,7 @@ class Calendar extends Component {
         <BigCalendar
           {...this.props}
           selectable
-          events={events}
+          events={dietPlan.map(item => ({ ...item, start: new Date(item.date), end: new Date(item.date)}))}
           defaultView="month"
           scrollToTime={new Date()}
           defaultDate={new Date()}
