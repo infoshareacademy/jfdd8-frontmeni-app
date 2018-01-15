@@ -39,7 +39,8 @@ class Calendar extends Component {
   state = {
     showModal: false,
     modalEvent: null,
-    food: []
+    food: [],
+    exercises: []
   }
 
   openModal = event => {
@@ -57,8 +58,14 @@ class Calendar extends Component {
       this.setState({
         food: Object.entries(snapshot.val() || {}).map(([key, value]) => ({ id: key, ...value}))
       })
-    })
+    });
+
+    firebase.database().ref(`/exercises/${userUid}`).on('value', snapshot => this.setState({
+      exercises: Object.entries(snapshot.val() || {}).map(([key, value]) => ({ id: key, ...value}))
+    }))
+
   }
+
 
   render() {
 
@@ -81,6 +88,14 @@ class Calendar extends Component {
               {
                 this.state.food.map(
                   foodItem => <option value={foodItem.id}>{foodItem.name} ({foodItem.calories} kCal)</option>
+                )
+              }
+            </select>
+            <select>
+              <option disabled selected>Select exercises</option>
+              {
+                this.state.exercises.map(
+                  exerciseItem => <option value={exerciseItem.id}>{exerciseItem.name} ({exerciseItem.caloriesBurnt} kCal)</option>
                 )
               }
             </select>
