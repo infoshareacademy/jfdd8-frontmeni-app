@@ -3,8 +3,8 @@ import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import dietPlan from './dietPlan';
 import ProgressBarInCalendar from './ProgressBarInCalendar'
-import Multiple from './MultipleModal'
 import {Modal, Button, Progress} from 'semantic-ui-react'
+import firebase from 'firebase'
 
 
 BigCalendar.setLocalizer(
@@ -17,11 +17,18 @@ const EventWrapper = props => {
 
   return (
     <div>
+    <div>
       Exercises
       <Progress percent={(props.event.exercise.reduce(
         (total, next) => total + next.caloriesBurnt, 0
-      ) / 2000) * 100} inverted progress success/>
-
+      ) / 2000) * 100} inverted progress error/>
+    </div>
+      <div>
+      Food eaten
+      <Progress value={(props.event.food.reduce(
+        (total, next) => total + next.calories, 0
+      ))}/>
+    </div>
     </div>
   )
 };
@@ -31,7 +38,8 @@ class Calendar extends Component {
 
   state = {
     showModal: false,
-    modalEvent: null
+    modalEvent: null,
+    food: []
   }
 
   openModal = event => {
@@ -40,12 +48,24 @@ class Calendar extends Component {
       showModal: true
     })
   }
+
   closeModal = () => this.setState({showModal: false})
+
+  componentDidMount() {
+    const userUid = firebase.auth().currentUser.uid;
+    firebase.database().ref(`/foods/${userUid}`).on('value', snapshot => {
+      this.setState({
+        food: Object.entries(snapshot.val() || {}).map(([key, value]) => ({ id: key, ...value}))
+      })
+    })
+  }
 
   render() {
 
+    console.log(this.state.food)
+
     return (
-      <div style={{height: 500}}>
+      <div style={{height: 800}}>
         <ProgressBarInCalendar/>
         {this.state.modalEvent && <Modal
           dimmer={false}
@@ -57,8 +77,12 @@ class Calendar extends Component {
           <Modal.Header>{this.state.modalEvent.title} </Modal.Header>
           <Modal.Content>
             <select>
-              <option value="100">Apple</option>
-              <option value="200">Rice</option>
+              <option disabled selected>Select food</option>
+              {
+                this.state.food.map(
+                  foodItem => <option value={foodItem.id}>{foodItem.name} ({foodItem.calories} kCal)</option>
+                )
+              }
             </select>
           </Modal.Content>
           <Modal.Actions>
