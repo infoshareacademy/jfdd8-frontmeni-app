@@ -50,13 +50,22 @@ class Calendar extends Component {
     })
   }
 
-  closeModal = () => this.setState({showModal: false})
+  closeModal = () => {
+    this.setState({
+      showModal: false})
+
+  }
 
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
     });
   };
+
+  handleFoodChange = event => {
+    console.log(event.target.value)
+    this.setState({selectedFoodId:event.target.value})
+  }
 
   componentDidMount() {
     const userUid = firebase.auth().currentUser.uid;
@@ -69,7 +78,6 @@ class Calendar extends Component {
     firebase.database().ref(`/exercises/${userUid}`).on('value', snapshot => this.setState({
       exercises: Object.entries(snapshot.val() || {}).map(([key, value]) => ({ id: key, ...value}))
     }))
-
   }
 
 
@@ -92,8 +100,8 @@ class Calendar extends Component {
             {moment(this.state.modalEvent.start).format("MMM Do YY")}
           </Modal.Header>
           <Modal.Content>
-            <p></p>
-            <select>
+            <p>Choose and add your daily elements</p>
+            <select onChange={this.handleFoodChange}>
               <option disabled selected>Select food</option>
               {
                 this.state.food.map(
