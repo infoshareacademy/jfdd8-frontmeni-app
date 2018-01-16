@@ -3,6 +3,11 @@ import { Form } from 'semantic-ui-react'
 
 
 class AddFoodRow extends Component {
+  state = {
+    name: '',
+    calories: 0
+  };
+
   onClick = () => {
     this.props.onNewFoodAdded(this.state);
     this.setState({
@@ -11,23 +16,10 @@ class AddFoodRow extends Component {
     })
   };
 
-  state = {
-    name: '',
-    calories: 0
-  };
-
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
     });
-  };
-
-  checkIfNumber = (event, foo, bar) => {
-    // if (event.keyCode >= 48 && event.keyCode <= 57){
-    //   event.stopImmediatePropagation();
-    // }
-    // console.log('check', event.keyCode, event.keyCode >= 48 && event.keyCode <= 57);
-    // return event.keyCode >= 48 && event.keyCode <= 57;
   };
 
   render() {
