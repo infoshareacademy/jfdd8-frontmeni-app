@@ -3,17 +3,18 @@ import { Form } from 'semantic-ui-react'
 
 
 class AddFoodRow extends Component {
+
+  state = {
+    name: '',
+    calories: 0
+  };
+
   onClick = () => {
     this.props.onNewFoodAdded(this.state);
     this.setState({
       name: '',
       calories: ''
     })
-  };
-
-  state = {
-    name: '',
-    calories: 0
   };
 
   handleChange = event => {

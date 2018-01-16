@@ -52,6 +52,12 @@ class Calendar extends Component {
 
   closeModal = () => this.setState({showModal: false})
 
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
   componentDidMount() {
     const userUid = firebase.auth().currentUser.uid;
     firebase.database().ref(`/foods/${userUid}`).on('value', snapshot => {
@@ -72,7 +78,7 @@ class Calendar extends Component {
     console.log(this.state.food)
 
     return (
-      <div style={{height: 800}}>
+      <div style={{height: 600}}>
         <ProgressBarInCalendar/>
         {this.state.modalEvent && <Modal
           dimmer={false}
@@ -81,8 +87,12 @@ class Calendar extends Component {
           onClose={this.closeModal}
           size='small'
         >
-          <Modal.Header>{this.state.modalEvent.title} </Modal.Header>
+          <Modal.Header>{moment(this.state.modalEvent.start).format("dddd")}
+            {' '}
+            {moment(this.state.modalEvent.start).format("MMM Do YY")}
+          </Modal.Header>
           <Modal.Content>
+            <p></p>
             <select>
               <option disabled selected>Select food</option>
               {
@@ -91,6 +101,7 @@ class Calendar extends Component {
                 )
               }
             </select>
+
             <select>
               <option disabled selected>Select exercises</option>
               {
@@ -101,7 +112,7 @@ class Calendar extends Component {
             </select>
           </Modal.Content>
           <Modal.Actions>
-            <Button icon='check' content='All Done' onClick={this.closeModal}/>
+            <Button icon='check' content='ADD' onClick={this.closeModal}/>
           </Modal.Actions>
         </Modal>}
         <BigCalendar
