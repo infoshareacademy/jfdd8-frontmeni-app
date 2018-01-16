@@ -72,7 +72,7 @@ class Calendar extends Component {
     console.log(this.state.food)
 
     return (
-      <div style={{height: 800}}>
+      <div style={{height: 'auto'}}>
         <ProgressBarInCalendar/>
         {this.state.modalEvent && <Modal
           dimmer={false}
@@ -83,16 +83,16 @@ class Calendar extends Component {
         >
           <Modal.Header>{this.state.modalEvent.title} </Modal.Header>
           <Modal.Content>
-            <select>
-              <option disabled selected>Select food</option>
+            <select defaultValue='food'>
+              <option disabled value='food'>Select food</option>
               {
                 this.state.food.map(
                   foodItem => <option value={foodItem.id}>{foodItem.name} ({foodItem.calories} kCal)</option>
                 )
               }
             </select>
-            <select>
-              <option disabled selected>Select exercises</option>
+            <select defaultValue='exercises'>
+              <option disabled value='exercises'>Select exercises</option>
               {
                 this.state.exercises.map(
                   exerciseItem => <option value={exerciseItem.id}>{exerciseItem.name} ({exerciseItem.caloriesBurnt} kCal)</option>
@@ -118,7 +118,6 @@ class Calendar extends Component {
             eventWrapper: EventWrapper
           }}
         />
-
       </div>
     )
   }

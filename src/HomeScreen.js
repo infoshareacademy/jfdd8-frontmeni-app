@@ -10,7 +10,6 @@ class HomeScreen extends Component {
       <div>
         <TopNavBar title="Home"/>
         <Calendar/>
-
         <NavBar/>
       </div>
     )

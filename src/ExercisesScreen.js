@@ -14,9 +14,14 @@ class ExercisesScreen extends Component {
 
   componentDidMount() {
     const userUid = firebase.auth().currentUser.uid;
-    firebase.database().ref(`/exercises/${userUid}`).on('value', snapshot => this.setState({
+    this.exercisesRef = firebase.database().ref(`/exercises/${userUid}`);
+    this.listener = this.exercisesRef.on('value', snapshot => this.setState({
       exercises: Object.entries(snapshot.val() || {}).map(([key, value]) => ({ id: key, ...value}))
     }))
+  }
+
+  componentWillUnmount() {
+    this.foodsRef.off('value', this.listener)
   }
 
   newExercise = (exercise) => {

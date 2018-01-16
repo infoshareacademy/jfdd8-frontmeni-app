@@ -11,7 +11,7 @@ class NavBar extends Component {
     const {activeItem} = this.state;
 
     return (
-      <Menu size='small'>
+      <Menu size='large'>
         <Menu.Item name='food' active={activeItem === 'food'} as={Link} to={'/food'}>
           <Icon name='food'/>
           Food
