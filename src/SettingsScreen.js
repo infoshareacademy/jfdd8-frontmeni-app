@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import TopNavBar from "./TopNavBar";
-import SettingsMenu from './SettingsMenu'
 import GoalsMenu from "./GoalsMenu";
 
 class SettingsScreen extends Component {
@@ -8,7 +7,6 @@ class SettingsScreen extends Component {
     return (
       <div>
         <TopNavBar title="Settings"/>
-        {/*<SettingsMenu/>*/}
         <GoalsMenu/>
       </div>
     )
