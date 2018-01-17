@@ -21,7 +21,7 @@ class ExercisesScreen extends Component {
   }
 
   componentWillUnmount() {
-    this.foodsRef.off('value', this.listener)
+    this.exercisesRef.off('value', this.listener)
   }
 
   newExercise = (exercise) => {
