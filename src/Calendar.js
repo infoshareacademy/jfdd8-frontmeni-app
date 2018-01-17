@@ -5,6 +5,7 @@ import dietPlan from './dietPlan';
 import ProgressBarInCalendar from './ProgressBarInCalendar'
 import {Modal, Button, Progress} from 'semantic-ui-react'
 import firebase from 'firebase'
+import FoodList from './FoodList'
 
 
 BigCalendar.setLocalizer(
