@@ -13,9 +13,14 @@ class FoodScreen extends Component {
 
   componentDidMount() {
     const userUid = firebase.auth().currentUser.uid;
-    firebase.database().ref(`/foods/${userUid}`).on('value', snapshot => this.setState({
+    this.foodsRef = firebase.database().ref(`/foods/${userUid}`)
+    this.listener = this.foodsRef.on('value', snapshot => this.setState({
       foods: Object.entries(snapshot.val() || {}).map(([key, value]) => ({ id: key, ...value}))
     }))
+  }
+
+  componentWillUnmount() {
+    this.foodsRef.off('value', this.listener)
   }
 
   newFood = (food) => {
@@ -33,7 +38,6 @@ class FoodScreen extends Component {
   };
 
   render() {
-
     return (
       <div>
         <TopNavBar title="Customize your daily food"/>

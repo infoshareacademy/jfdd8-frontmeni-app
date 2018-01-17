@@ -5,8 +5,6 @@ import dietPlan from './dietPlan';
 import ProgressBarInCalendar from './ProgressBarInCalendar'
 import {Modal, Button, Progress} from 'semantic-ui-react'
 import firebase from 'firebase'
-import FoodList from './FoodList'
-import AddFoodRow from "./AddFoodRow";
 
 
 BigCalendar.setLocalizer(
@@ -19,18 +17,18 @@ const EventWrapper = props => {
 
   return (
     <div>
+    <div>
+      Exercises
+      <Progress percent={(props.event.exercise.reduce(
+        (total, next) => total + next.caloriesBurnt, 0
+      ) / 2000) * 100} inverted progress error/>
+    </div>
       <div>
-        Exercises
-        <Progress percent={(props.event.exercise.reduce(
-          (total, next) => total + next.caloriesBurnt, 0
-        ) / 2000) * 100} inverted progress error/>
-      </div>
-      <div>
-        Food eaten
-        <Progress value={(props.event.food.reduce(
-          (total, next) => total + next.calories, 0
-        ))}/>
-      </div>
+      Food eaten
+      <Progress value={(props.event.food.reduce(
+        (total, next) => total + next.calories, 0
+      ))}/>
+    </div>
     </div>
   )
 };
@@ -113,7 +111,7 @@ class Calendar extends Component {
     console.log(this.state.food)
 
     return (
-      <div style={{height: 500}}>
+      <div style={{height: 'auto'}}>
         <ProgressBarInCalendar/>
         {this.state.modalEvent && <Modal
           dimmer={false}
@@ -122,23 +120,26 @@ class Calendar extends Component {
           onClose={this.closeModal}
           size='small'
         >
-          <Modal.Header>{moment(this.state.modalEvent.start).format("dddd")}
+          <Modal.Header>
+            {moment(this.state.modalEvent.start).format("dddd")}
             {' '}
             {moment(this.state.modalEvent.start).format("MMM Do YY")}
           </Modal.Header>
+
           <Modal.Content>
             <p>Choose and add your daily elements</p>
-            <select onChange={this.handleFoodChange}>
-              <option disabled selected>Select food</option>
+            <select defaultValue='food' onChange={this.handleFoodChange}>
+              <option disabled value='food'>Select food</option>
               {
                 this.state.food.map(
                   foodItem => <option value={foodItem.id}>{foodItem.name} ({foodItem.calories} kCal)</option>
                 )
               }
-            </select><button onClick={this.addFood}>add</button>
+            </select>
+            <button onClick={this.addFood}>add</button>
 
-            <select onChange={this.handleExercisesChange}>
-              <option disabled selected>Select exercises</option>
+            <select onChange={this.handleExercisesChange} defaultValue='exercises'>
+              <option disabled value='exercises'>Select exercises</option>
               {
                 this.state.exercises.map(
                   exerciseItem => <option value={exerciseItem.id}>{exerciseItem.name} ({exerciseItem.caloriesBurnt}
