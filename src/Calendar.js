@@ -5,6 +5,7 @@ import dietPlan from './dietPlan';
 import ProgressBarInCalendar from './ProgressBarInCalendar'
 import {Modal, Button, Progress} from 'semantic-ui-react'
 import firebase from 'firebase'
+import FoodList from './FoodList'
 
 
 BigCalendar.setLocalizer(
@@ -40,7 +41,13 @@ class Calendar extends Component {
     showModal: false,
     modalEvent: null,
     food: [],
-    exercises: []
+    selectedFood: [],
+    exercises: [],
+    selectedExercises: [],
+    date: [],
+    selectedExerciseId: null,
+    selectedFoodId: null
+
   }
 
   openModal = event => {
@@ -50,19 +57,52 @@ class Calendar extends Component {
     })
   }
 
-  closeModal = () => this.setState({showModal: false})
+  closeModal = () => {
+
+
+    // ref.child('/exercises').push(this.state.selectedExercises)
+    this.setState({
+      showModal: false,
+      selectedFood: []
+    })
+  }
+
+  // handleChange = event => {
+  //   this.setState({
+  //     [event.target.name]: event.target.value
+  //   });
+  // };
+
+  handleFoodChange = event => {
+    console.log(event.target.value)
+    this.setState({selectedFoodId: event.target.value})
+  }
+
+  handleExercisesChange = event => {
+    console.log(event.target.value)
+    this.setState({selectedExerciseId: event.target.value})
+  }
 
   componentDidMount() {
     const userUid = firebase.auth().currentUser.uid;
+
     firebase.database().ref(`/foods/${userUid}`).on('value', snapshot => {
       this.setState({
-        food: Object.entries(snapshot.val() || {}).map(([key, value]) => ({ id: key, ...value}))
+        food: Object.entries(snapshot.val() || {}).map(([key, value]) => ({id: key, ...value}))
       })
     });
 
     firebase.database().ref(`/exercises/${userUid}`).on('value', snapshot => this.setState({
-      exercises: Object.entries(snapshot.val() || {}).map(([key, value]) => ({ id: key, ...value}))
+      exercises: Object.entries(snapshot.val() || {}).map(([key, value]) => ({id: key, ...value}))
     }))
+  }
+
+  addFood = () => {
+    const userUid = firebase.auth().currentUser.uid;
+    const start = moment(this.state.modalEvent.start)
+    const ref = firebase.database().ref(`/dietPlan/${userUid}/${start.format()}/food`)
+
+     ref.push(this.state.food.find(item => item.id === this.state.selectedFoodId))
 
   }
 
@@ -81,9 +121,15 @@ class Calendar extends Component {
           onClose={this.closeModal}
           size='small'
         >
-          <Modal.Header>{this.state.modalEvent.title} </Modal.Header>
+          <Modal.Header>
+            {moment(this.state.modalEvent.start).format("dddd")}
+            {' '}
+            {moment(this.state.modalEvent.start).format("MMM Do YY")}
+          </Modal.Header>
+
           <Modal.Content>
-            <select defaultValue='food'>
+            <p>Choose and add your daily elements</p>
+            <select defaultValue='food' onChange={this.handleFoodChange}>
               <option disabled value='food'>Select food</option>
               {
                 this.state.food.map(
@@ -91,23 +137,31 @@ class Calendar extends Component {
                 )
               }
             </select>
-            <select defaultValue='exercises'>
+            <button onClick={this.addFood}>add</button>
+
+            <select onChange={this.handleExercisesChange} defaultValue='exercises'>
               <option disabled value='exercises'>Select exercises</option>
               {
                 this.state.exercises.map(
-                  exerciseItem => <option value={exerciseItem.id}>{exerciseItem.name} ({exerciseItem.caloriesBurnt} kCal)</option>
+                  exerciseItem => <option value={exerciseItem.id}>{exerciseItem.name} ({exerciseItem.caloriesBurnt}
+                    kCal)</option>
                 )
               }
             </select>
+
+            <FoodList
+              key={moment(this.state.modalEvent.start).format()}
+              date={moment(this.state.modalEvent.start).format()}
+            />
           </Modal.Content>
           <Modal.Actions>
-            <Button icon='check' content='All Done' onClick={this.closeModal}/>
+            <Button icon='check' content='ADD' onClick={this.closeModal}/>
           </Modal.Actions>
         </Modal>}
         <BigCalendar
           {...this.props}
           selectable
-          events={dietPlan.map(item => ({ ...item, start: new Date(item.date), end: new Date(item.date)}))}
+          events={dietPlan.map(item => ({...item, start: new Date(item.date), end: new Date(item.date)}))}
           defaultView="month"
           scrollToTime={new Date()}
           defaultDate={new Date()}
@@ -118,6 +172,7 @@ class Calendar extends Component {
             eventWrapper: EventWrapper
           }}
         />
+
       </div>
     )
   }
