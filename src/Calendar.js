@@ -3,7 +3,7 @@ import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import dietPlan from './dietPlan';
 import ProgressBarInCalendar from './ProgressBarInCalendar'
-import {Modal, Button, Progress} from 'semantic-ui-react'
+import {Modal, Button, Progress, Form} from 'semantic-ui-react'
 import firebase from 'firebase'
 import FoodList from './FoodList'
 import ExercisesList from "./ExercisesList"
@@ -68,9 +68,9 @@ class Calendar extends Component {
     })
   };
 
-  handleFoodChange = event => {
-    console.log(event.target.value);
-    this.setState({selectedFoodId: event.target.value})
+  handleFoodChange = (e, {value}) => {
+    // console.log(event.target.value);
+    this.setState({selectedFoodId: value})
   };
 
   handleExercisesChange = event => {
@@ -119,7 +119,7 @@ class Calendar extends Component {
           open={this.state.showModal}
           onOpen={this.openModal}
           onClose={this.closeModal}
-          size='small'
+          size='large'
         >
           <Modal.Header>
             {moment(this.state.modalEvent.start).format("dddd")}
@@ -133,18 +133,18 @@ class Calendar extends Component {
             <div className="modalList">
               <div>
                 <h1>Food</h1>
+                <Form.Group>
+                <Form.Select
+                  inline
+                  defaultValue='food'
+                  onChange={this.handleFoodChange}
+                  options={this.state.food.map(
+                    foodItem => ({ key: foodItem.id, value: foodItem.id, text: `${foodItem.name} (${foodItem.calories} kCal)` })
+                  )}
+                />
 
-                <select defaultValue='food' onChange={this.handleFoodChange}>
-                  <option disabled value='food'>Select food</option>
-                  {
-                    this.state.food.map(
-                      foodItem => <option value={foodItem.id}>{foodItem.name} ({foodItem.calories} kCal)</option>
-                    )
-                  }
-                </select>
-
-                <Button color='black' onClick={this.addFood}>Add to list</Button>
-
+                <Form.Button inline color='black' onClick={this.addFood}>Add to list</Form.Button>
+                </Form.Group>
                 <FoodList
                   key={moment(this.state.modalEvent.start).format()}
                   date={moment(this.state.modalEvent.start).format()}
