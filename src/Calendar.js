@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
-import dietPlan from './dietPlan';
 import ProgressBarInCalendar from './ProgressBarInCalendar'
 import {Modal, Button, Progress, Form} from 'semantic-ui-react'
 import firebase from 'firebase'
@@ -19,18 +18,16 @@ const EventWrapper = props => {
 
   return (
     <div>
+    <div>
+      <Progress percent={(props.event.food.reduce(
+        (total, next) => total + parseFloat(next.calories), 0
+      ) / 2000) * 100} inverted progress error/>
+    </div>
       <div>
-        Exercises
-        <Progress percent={(props.event.exercise.reduce(
-          (total, next) => total + next.caloriesBurnt, 0
-        ) / 2000) * 100} inverted progress error/>
-      </div>
-      <div>
-        Food eaten
-        <Progress value={(props.event.food.reduce(
-          (total, next) => total + next.calories, 0
-        ))}/>
-      </div>
+      <Progress progress={(props.event.food.reduce(
+        (total, next) => total + next.calories, 0
+      ))}/>
+    </div>
     </div>
   )
 };
@@ -47,9 +44,9 @@ class Calendar extends Component {
     selectedExercises: [],
     date: [],
     selectedExerciseId: null,
-    selectedFoodId: null
-
-  };
+    selectedFoodId: null,
+    dietPlan: []
+  }
 
   openModal = event => {
     this.setState({
@@ -69,7 +66,6 @@ class Calendar extends Component {
   };
 
   handleFoodChange = (e, {value}) => {
-    // console.log(event.target.value);
     this.setState({selectedFoodId: value})
   };
 
@@ -89,6 +85,21 @@ class Calendar extends Component {
 
     firebase.database().ref(`/exercises/${userUid}`).on('value', snapshot => this.setState({
       exercises: Object.entries(snapshot.val() || {}).map(([key, value]) => ({id: key, ...value}))
+    }))
+
+    firebase.database().ref(`/dietPlan/${userUid}`).on('value', snapshot => this.setState({
+      dietPlan: Object.entries(snapshot.val() || {}).map(
+        ([ date, value ]) => ({
+          date,
+          food: Object.entries(value.food || {}).map(
+            ([key, foodItem]) => ({
+              name: foodItem.name,
+              calories: foodItem.calories
+            })
+          ),
+          exercises:[]
+        })
+      )
     }))
   }
 
@@ -184,7 +195,13 @@ class Calendar extends Component {
         <BigCalendar
           {...this.props}
           selectable
-          events={dietPlan.map(item => ({...item, start: new Date(item.date), end: new Date(item.date)}))}
+          events={this.state.dietPlan.map(
+            item => ({
+              ...item,
+              start: new Date(item.date),
+              end: new Date(item.date)
+            })
+          )}
           defaultView="month"
           scrollToTime={new Date()}
           defaultDate={new Date()}
