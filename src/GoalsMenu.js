@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 import firebase from 'firebase'
+import TopNavBar from "./TopNavBar";
 
 const goalOptions = [
   {key: 't', text: 'Lose weight', value: 'male'},
@@ -39,6 +40,7 @@ class GoalsMenu extends Component {
   render() {
     return (
       <div className='login-form'>
+        <TopNavBar title="Settings / Set my goals"/>
         <Grid
           textAlign='center'
           style={{ height: '100%' }}
