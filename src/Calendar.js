@@ -6,6 +6,7 @@ import ProgressBarInCalendar from './ProgressBarInCalendar'
 import {Modal, Button, Progress} from 'semantic-ui-react'
 import firebase from 'firebase'
 import FoodList from './FoodList'
+import ExercisesList from "./ExercisesList";
 
 
 BigCalendar.setLocalizer(
@@ -48,14 +49,14 @@ class Calendar extends Component {
     selectedExerciseId: null,
     selectedFoodId: null
 
-  }
+  };
 
   openModal = event => {
     this.setState({
       modalEvent: event,
       showModal: true
     })
-  }
+  };
 
   closeModal = () => {
 
@@ -63,9 +64,10 @@ class Calendar extends Component {
     // ref.child('/exercises').push(this.state.selectedExercises)
     this.setState({
       showModal: false,
-      selectedFood: []
+      selectedFood: [],
+      selectedExercises: []
     })
-  }
+  };
 
   // handleChange = event => {
   //   this.setState({
@@ -104,13 +106,19 @@ class Calendar extends Component {
 
      ref.push(this.state.food.find(item => item.id === this.state.selectedFoodId))
 
-  }
+  };
+
+  addExercise = () => {
+    const userUid = firebase.auth().currentUser.uid;
+    const start = moment(this.state.modalEvent.start);
+    const ref = firebase.database().ref(`/exercisesPlan/${userUid}/${start.format()}/exercises`);
+
+    ref.push(this.state.exercises.find(item => item.id === this.state.selectedExerciseId))
+
+  };
 
 
   render() {
-
-    console.log(this.state.food)
-
     return (
       <div style={{height: 'auto'}}>
         <ProgressBarInCalendar/>
@@ -148,11 +156,15 @@ class Calendar extends Component {
                 )
               }
             </select>
+            <button onClick={this.addExercise}>add</button>
 
             <FoodList
               key={moment(this.state.modalEvent.start).format()}
               date={moment(this.state.modalEvent.start).format()}
             />
+            <ExercisesList
+              key={moment(this.state.modalEvent.start).format()}
+              date={moment(this.state.modalEvent.start).format()}/>
           </Modal.Content>
           <Modal.Actions>
             <Button icon='check' content='ADD' onClick={this.closeModal}/>
