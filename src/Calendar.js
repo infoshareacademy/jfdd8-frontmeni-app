@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
-import dietPlan from './dietPlan';
 import ProgressBarInCalendar from './ProgressBarInCalendar'
-import {Modal, Button, Progress} from 'semantic-ui-react'
+import {Modal, Button, Progress, Form} from 'semantic-ui-react'
 import firebase from 'firebase'
 import FoodList from './FoodList'
+import ExercisesList from "./ExercisesList"
 
 
 BigCalendar.setLocalizer(
@@ -53,25 +53,26 @@ class Calendar extends Component {
       modalEvent: event,
       showModal: true
     })
-  }
+  };
 
   closeModal = () => {
 
+    // ref.child('/exercises').push(this.state.selectedExercises)
     this.setState({
       showModal: false,
-      selectedFood: []
+      selectedFood: [],
+      selectedExercises: []
     })
-  }
+  };
 
-  handleFoodChange = event => {
-    console.log(event.target.value)
-    this.setState({selectedFoodId: event.target.value})
-  }
+  handleFoodChange = (e, {value}) => {
+    this.setState({selectedFoodId: value})
+  };
 
   handleExercisesChange = event => {
-    console.log(event.target.value)
+    console.log(event.target.value);
     this.setState({selectedExerciseId: event.target.value})
-  }
+  };
 
   componentDidMount() {
     const userUid = firebase.auth().currentUser.uid;
@@ -107,15 +108,20 @@ class Calendar extends Component {
     const start = moment(this.state.modalEvent.start)
     const ref = firebase.database().ref(`/dietPlan/${userUid}/${start.format()}/food`)
 
-     ref.push(this.state.food.find(item => item.id === this.state.selectedFoodId))
+    ref.push(this.state.food.find(item => item.id === this.state.selectedFoodId))
 
-  }
+  };
 
+  addExercise = () => {
+    const userUid = firebase.auth().currentUser.uid;
+    const start = moment(this.state.modalEvent.start);
+    const ref = firebase.database().ref(`/exercisesPlan/${userUid}/${start.format()}/exercises`);
+
+    ref.push(this.state.exercises.find(item => item.id === this.state.selectedExerciseId))
+
+  };
 
   render() {
-
-    console.log(this.state.food)
-
     return (
       <div style={{height: 'auto'}}>
         <ProgressBarInCalendar/>
@@ -124,7 +130,7 @@ class Calendar extends Component {
           open={this.state.showModal}
           onOpen={this.openModal}
           onClose={this.closeModal}
-          size='small'
+          size='large'
         >
           <Modal.Header>
             {moment(this.state.modalEvent.start).format("dddd")}
@@ -134,34 +140,57 @@ class Calendar extends Component {
 
           <Modal.Content>
             <p>Choose and add your daily elements</p>
-            <select defaultValue='food' onChange={this.handleFoodChange}>
-              <option disabled value='food'>Select food</option>
-              {
-                this.state.food.map(
-                  foodItem => <option value={foodItem.id}>{foodItem.name} ({foodItem.calories} kCal)</option>
-                )
-              }
-            </select>
-            <button onClick={this.addFood}>add</button>
 
-            <select onChange={this.handleExercisesChange} defaultValue='exercises'>
-              <option disabled value='exercises'>Select exercises</option>
-              {
-                this.state.exercises.map(
-                  exerciseItem => <option value={exerciseItem.id}>{exerciseItem.name} ({exerciseItem.caloriesBurnt}
-                    kCal)</option>
-                )
-              }
-            </select>
+            <div className="modalList">
+              <div>
+                <h1>Food</h1>
+                <Form.Group>
+                <Form.Select
+                  inline
+                  defaultValue='food'
+                  onChange={this.handleFoodChange}
+                  options={this.state.food.map(
+                    foodItem => ({ key: foodItem.id, value: foodItem.id, text: `${foodItem.name} (${foodItem.calories} kCal)` })
+                  )}
+                />
 
-            <FoodList
-              key={moment(this.state.modalEvent.start).format()}
-              date={moment(this.state.modalEvent.start).format()}
-            />
+                <Form.Button inline color='black' onClick={this.addFood}>Add to list</Form.Button>
+                </Form.Group>
+                <FoodList
+                  key={moment(this.state.modalEvent.start).format()}
+                  date={moment(this.state.modalEvent.start).format()}
+                />
+              </div>
+
+              <div>
+                <h1>Exercises</h1>
+
+                <select onChange={this.handleExercisesChange} defaultValue='exercises'>
+
+                  <option disabled value='exercises'>Select exercises</option>
+                  {
+                    this.state.exercises.map(
+                      exerciseItem => <option value={exerciseItem.id}>{exerciseItem.name} ({exerciseItem.caloriesBurnt}
+                        kCal)</option>
+                    )
+                  }
+                </select>
+
+                <Button color='black' onClick={this.addExercise}>add</Button>
+
+                <ExercisesList
+                  key={moment(this.state.modalEvent.start).format()}
+                  date={moment(this.state.modalEvent.start).format()}/>
+              </div>
+
+            </div>
+
           </Modal.Content>
+
           <Modal.Actions>
             <Button icon='check' content='ADD' onClick={this.closeModal}/>
           </Modal.Actions>
+
         </Modal>}
         <BigCalendar
           {...this.props}
