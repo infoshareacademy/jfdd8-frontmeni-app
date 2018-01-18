@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import TopNavBar from "./TopNavBar";
-import GoalsMenu from "./GoalsMenu";
+import SettingsMenu from "./SettingsMenu";
 
 class SettingsScreen extends Component {
   render() {
     return (
       <div>
         <TopNavBar title="Settings"/>
-        <GoalsMenu/>
+        <SettingsMenu/>
       </div>
     )
   }

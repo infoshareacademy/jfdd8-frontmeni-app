@@ -15,6 +15,7 @@ import HomeScreen from "./HomeScreen";
 import FoodScreen from "./FoodScreen";
 import ExercisesScreen from "./ExercisesScreen";
 import SettingsScreen from "./SettingsScreen";
+import GoalsMenu from "./GoalsMenu"
 import Auth from "./components/Auth";
 // import ProgressBarInCalendar from './ProgressBarInCalendar'
 
@@ -28,6 +29,7 @@ ReactDOM.render(
             <Route exact path="/food" component={FoodScreen}/>
             <Route exact path="/exercises" component={ExercisesScreen}/>
             <Route exact path="/settings" component={SettingsScreen}/>
+            <Route exact path="/settings/goals" component={GoalsMenu}/>
           </Auth>
         </Switch>
       </div>
