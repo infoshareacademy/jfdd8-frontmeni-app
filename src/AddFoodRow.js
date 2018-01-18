@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import { Form } from 'semantic-ui-react'
+import {Form} from 'semantic-ui-react'
 
 
 class AddFoodRow extends Component {
@@ -27,23 +27,23 @@ class AddFoodRow extends Component {
       <Fragment>
         <tr>
           <td>
-          <Form.Input
-            type='text'
-            onChange={this.handleChange}
-            value={this.state.name}
-            name='name'
-            required
-          />
+            <Form.Input
+              type='text'
+              onChange={this.handleChange}
+              value={this.state.name}
+              name='name'
+              required
+            />
           </td>
           <td>
-          <Form.Input
-            type="number"
-            min="1"
-            onChange={this.handleChange}
-            value={this.state.calories}
-            name='calories'
-            required
-          />
+            <Form.Input
+              type="number"
+              min="1"
+              onChange={this.handleChange}
+              value={this.state.calories}
+              name='calories'
+              required
+            />
           </td>
           <td>
             <button onClick={this.onClick}>Add</button>
