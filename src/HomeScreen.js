@@ -8,7 +8,7 @@ class HomeScreen extends Component {
   render() {
     return (
       <div>
-        <TopNavBar title="Home"/>
+        <TopNavBar title="Home" style={{fontSize: '50px'}} />
         <Calendar/>
         <NavBar/>
       </div>
