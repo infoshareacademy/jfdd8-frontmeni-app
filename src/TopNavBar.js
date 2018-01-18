@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Menu } from 'semantic-ui-react'
 import logo from './app-logo/LO.png'
-import { Image } from 'semantic-ui-react'
+import { Image, Icon } from 'semantic-ui-react'
 import { Link, withRouter } from 'react-router-dom'
 import { signOut } from './state/auth';
 import { connect } from 'react-redux'
@@ -12,6 +12,9 @@ import { connect } from 'react-redux'
   render() {
     return (
       <Menu stackable>
+        <Menu.Item>
+          <Icon name='arrow left'/>
+        </Menu.Item>
         <Menu.Item>
           <Image src={logo} size='tiny' floated='left' as={Link} to={'/'}/>
           {this.props.title}

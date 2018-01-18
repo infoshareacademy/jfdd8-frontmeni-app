@@ -48,8 +48,8 @@ class SettingsMenu extends Component {
             <Header as='h2' textAlign='center' className='login-header'>
               {' '}Settings
             </Header>
-            <Button className='button-style' color='white' fluid size='large' as={Link} to={'/settings/goals'}>Set my goals</Button>
-            <Button onClick={() => firebase.auth().signOut()} className='button-style' color='red' fluid size='large'>Log out</Button>
+            <Button  color='white' fluid size='large' as={Link} to={'/settings/goals'}>Set my goals</Button>
+            <Button onClick={() => firebase.auth().signOut()} className='button-style' color='black' fluid size='large'>Log out</Button>
           </Grid.Column>
         </Grid>
       </div>
