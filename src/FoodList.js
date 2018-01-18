@@ -25,7 +25,7 @@ class FoodList extends Component {
   render() {
     return (
       <div>
-        <h1>Food</h1>
+
         <ul>
           {
             this.state.foodList.map(

@@ -25,3 +25,12 @@ body > div > div > div.login-form {
 .ui.progress .bar>.progress {
   right: auto;
 }
+
+.modalList {
+  display: flex;
+  flex-direction: row;
+}
+
+.modalList > * {
+  flex-grow: 1;
+}

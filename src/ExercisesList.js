@@ -25,13 +25,13 @@ class ExercisesList extends Component {
   render() {
     return (
       <div>
-        <h1>Exercises</h1>
+
         <ul>
           {
             this.state.exercisesList.map(
               exercisesItem => (
                 <li key={exercisesItem.id}>
-                  {exercisesItem.name} ({exercisesItem.calories})
+                  {exercisesItem.name} ({exercisesItem.caloriesBurnt})
 
                 </li>
               )

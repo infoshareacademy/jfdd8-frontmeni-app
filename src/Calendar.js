@@ -6,7 +6,7 @@ import ProgressBarInCalendar from './ProgressBarInCalendar'
 import {Modal, Button, Progress} from 'semantic-ui-react'
 import firebase from 'firebase'
 import FoodList from './FoodList'
-import ExercisesList from "./ExercisesList";
+import ExercisesList from "./ExercisesList"
 
 
 BigCalendar.setLocalizer(
@@ -19,18 +19,18 @@ const EventWrapper = props => {
 
   return (
     <div>
-    <div>
-      Exercises
-      <Progress percent={(props.event.exercise.reduce(
-        (total, next) => total + next.caloriesBurnt, 0
-      ) / 2000) * 100} inverted progress error/>
-    </div>
       <div>
-      Food eaten
-      <Progress value={(props.event.food.reduce(
-        (total, next) => total + next.calories, 0
-      ))}/>
-    </div>
+        Exercises
+        <Progress percent={(props.event.exercise.reduce(
+          (total, next) => total + next.caloriesBurnt, 0
+        ) / 2000) * 100} inverted progress error/>
+      </div>
+      <div>
+        Food eaten
+        <Progress value={(props.event.food.reduce(
+          (total, next) => total + next.calories, 0
+        ))}/>
+      </div>
     </div>
   )
 };
@@ -60,7 +60,6 @@ class Calendar extends Component {
 
   closeModal = () => {
 
-
     // ref.child('/exercises').push(this.state.selectedExercises)
     this.setState({
       showModal: false,
@@ -69,21 +68,15 @@ class Calendar extends Component {
     })
   };
 
-  // handleChange = event => {
-  //   this.setState({
-  //     [event.target.name]: event.target.value
-  //   });
-  // };
-
   handleFoodChange = event => {
-    console.log(event.target.value)
+    console.log(event.target.value);
     this.setState({selectedFoodId: event.target.value})
-  }
+  };
 
   handleExercisesChange = event => {
-    console.log(event.target.value)
+    console.log(event.target.value);
     this.setState({selectedExerciseId: event.target.value})
-  }
+  };
 
   componentDidMount() {
     const userUid = firebase.auth().currentUser.uid;
@@ -104,7 +97,7 @@ class Calendar extends Component {
     const start = moment(this.state.modalEvent.start)
     const ref = firebase.database().ref(`/dietPlan/${userUid}/${start.format()}/food`)
 
-     ref.push(this.state.food.find(item => item.id === this.state.selectedFoodId))
+    ref.push(this.state.food.find(item => item.id === this.state.selectedFoodId))
 
   };
 
@@ -116,7 +109,6 @@ class Calendar extends Component {
     ref.push(this.state.exercises.find(item => item.id === this.state.selectedExerciseId))
 
   };
-
 
   render() {
     return (
@@ -137,38 +129,57 @@ class Calendar extends Component {
 
           <Modal.Content>
             <p>Choose and add your daily elements</p>
-            <select defaultValue='food' onChange={this.handleFoodChange}>
-              <option disabled value='food'>Select food</option>
-              {
-                this.state.food.map(
-                  foodItem => <option value={foodItem.id}>{foodItem.name} ({foodItem.calories} kCal)</option>
-                )
-              }
-            </select>
-            <button onClick={this.addFood}>add</button>
 
-            <select onChange={this.handleExercisesChange} defaultValue='exercises'>
-              <option disabled value='exercises'>Select exercises</option>
-              {
-                this.state.exercises.map(
-                  exerciseItem => <option value={exerciseItem.id}>{exerciseItem.name} ({exerciseItem.caloriesBurnt}
-                    kCal)</option>
-                )
-              }
-            </select>
-            <button onClick={this.addExercise}>add</button>
+            <div className="modalList">
+              <div>
+                <h1>Food</h1>
 
-            <FoodList
-              key={moment(this.state.modalEvent.start).format()}
-              date={moment(this.state.modalEvent.start).format()}
-            />
-            <ExercisesList
-              key={moment(this.state.modalEvent.start).format()}
-              date={moment(this.state.modalEvent.start).format()}/>
+                <select defaultValue='food' onChange={this.handleFoodChange}>
+                  <option disabled value='food'>Select food</option>
+                  {
+                    this.state.food.map(
+                      foodItem => <option value={foodItem.id}>{foodItem.name} ({foodItem.calories} kCal)</option>
+                    )
+                  }
+                </select>
+
+                <Button color='black' onClick={this.addFood}>Add to list</Button>
+
+                <FoodList
+                  key={moment(this.state.modalEvent.start).format()}
+                  date={moment(this.state.modalEvent.start).format()}
+                />
+              </div>
+
+              <div>
+                <h1>Exercises</h1>
+
+                <select onChange={this.handleExercisesChange} defaultValue='exercises'>
+
+                  <option disabled value='exercises'>Select exercises</option>
+                  {
+                    this.state.exercises.map(
+                      exerciseItem => <option value={exerciseItem.id}>{exerciseItem.name} ({exerciseItem.caloriesBurnt}
+                        kCal)</option>
+                    )
+                  }
+                </select>
+
+                <Button color='black' onClick={this.addExercise}>add</Button>
+
+                <ExercisesList
+                  key={moment(this.state.modalEvent.start).format()}
+                  date={moment(this.state.modalEvent.start).format()}/>
+              </div>
+
+            </div>
+
           </Modal.Content>
+
           <Modal.Actions>
             <Button icon='check' content='ADD' onClick={this.closeModal}/>
           </Modal.Actions>
+
         </Modal>}
         <BigCalendar
           {...this.props}
