@@ -14,3 +14,14 @@ body > div > div > div.login-form {
   font-family: serif;
   color: black
 }
+
+
+
+.ui.progress:last-child {
+  margin:0 0 0.5em;
+}
+
+
+.ui.progress .bar>.progress {
+  right: auto;
+}
