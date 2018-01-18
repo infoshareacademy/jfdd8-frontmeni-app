@@ -19,14 +19,14 @@ const EventWrapper = props => {
   return (
     <div>
       <div>
-        <Progress percent={(props.event.food.reduce(
+        <Progress color='green' percent={(props.event.food.reduce(
           (total, next) => total + parseFloat(next.calories), 0
-        ) / 2000) * 100} inverted progress error/>
+        ) / 2000) * 100} inverted progress/>
       </div>
       <div>
-        <Progress percent={(props.event.exercises.reduce(
+        <Progress color='blue' percent={(props.event.exercises.reduce(
           (total, next) => total + parseFloat(next.caloriesBurnt), 0
-        ) / 2000) * 100} inverted progress error/>
+        ) / 2000) * 100} inverted progress/>
       </div>
     </div>
   )
@@ -163,7 +163,7 @@ class Calendar extends Component {
                     )}
                   />
 
-                  <Form.Button inline color='black' onClick={this.addFood}>Add to list</Form.Button>
+                  <Form.Button  color='black' onClick={this.addFood}>Add to list</Form.Button>
                 </Form.Group>
                 <FoodList
                   key={moment(this.state.modalEvent.start).format()}

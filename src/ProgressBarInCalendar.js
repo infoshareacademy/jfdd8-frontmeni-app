@@ -4,7 +4,7 @@ import {Progress, Button} from 'semantic-ui-react'
 
 class ProgressBarInCalendar extends Component {
 
-  state = {percent: 0}
+  state = {percent: 0};
 
   toggle = () => this.setState({percent: this.state.percent === 0 ? 100 : 0})
 
