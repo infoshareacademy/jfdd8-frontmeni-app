@@ -18,7 +18,7 @@ import { connect } from 'react-redux'
         <Menu.Item>
           <Image src={logo} size='tiny' floated='left' as={Link} to={'/'}/>
           {this.props.title}
-        </Menu.Item>
+      </Menu.Item>
       </Menu>
     )
   }

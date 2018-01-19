@@ -18,16 +18,16 @@ const EventWrapper = props => {
 
   return (
     <div>
-    <div>
-      <Progress percent={(props.event.food.reduce(
-        (total, next) => total + parseFloat(next.calories), 0
-      ) / 2000) * 100} inverted progress error/>
-    </div>
       <div>
-      <Progress progress={(props.event.food.reduce(
-        (total, next) => total + next.calories, 0
-      ))}/>
-    </div>
+        <Progress color='green' percent={(props.event.food.reduce(
+          (total, next) => total + parseFloat(next.calories), 0
+        ) / 2000) * 100} inverted progress/>
+      </div>
+      <div>
+        <Progress color='blue' percent={(props.event.exercises.reduce(
+          (total, next) => total + parseFloat(next.caloriesBurnt), 0
+        ) / 2000) * 100} inverted progress/>
+      </div>
     </div>
   )
 };
@@ -39,14 +39,14 @@ class Calendar extends Component {
     showModal: false,
     modalEvent: null,
     food: [],
-    selectedFood: [],
     exercises: [],
+    selectedFood: [],
     selectedExercises: [],
     date: [],
-    selectedExerciseId: null,
     selectedFoodId: null,
-    dietPlan: []
-  }
+    selectedExerciseId: null,
+    dietPlan: [],
+  };
 
   openModal = event => {
     this.setState({
@@ -69,10 +69,10 @@ class Calendar extends Component {
     this.setState({selectedFoodId: value})
   };
 
-  handleExercisesChange = event => {
-    console.log(event.target.value);
-    this.setState({selectedExerciseId: event.target.value})
+  handleExercisesChange = (e, {value}) => {
+    this.setState({selectedExerciseId: value})
   };
+
 
   componentDidMount() {
     const userUid = firebase.auth().currentUser.uid;
@@ -83,13 +83,14 @@ class Calendar extends Component {
       })
     });
 
-    firebase.database().ref(`/exercises/${userUid}`).on('value', snapshot => this.setState({
+    firebase.database().ref(`/exercises/${userUid}`).on('value', snapshot =>
+      this.setState({
       exercises: Object.entries(snapshot.val() || {}).map(([key, value]) => ({id: key, ...value}))
-    }))
+    }));
 
     firebase.database().ref(`/dietPlan/${userUid}`).on('value', snapshot => this.setState({
       dietPlan: Object.entries(snapshot.val() || {}).map(
-        ([ date, value ]) => ({
+        ([date, value]) => ({
           date,
           food: Object.entries(value.food || {}).map(
             ([key, foodItem]) => ({
@@ -97,16 +98,20 @@ class Calendar extends Component {
               calories: foodItem.calories
             })
           ),
-          exercises:[]
-        })
-      )
+          exercises: Object.entries(value.exercises || {}).map(
+            ([key, exercisesItem]) => ({
+              name: exercisesItem.name,
+              caloriesBurnt: exercisesItem.caloriesBurnt
+            })
+          )
+        }))
     }))
   }
 
   addFood = () => {
     const userUid = firebase.auth().currentUser.uid;
-    const start = moment(this.state.modalEvent.start)
-    const ref = firebase.database().ref(`/dietPlan/${userUid}/${start.format()}/food`)
+    const start = moment(this.state.modalEvent.start);
+    const ref = firebase.database().ref(`/dietPlan/${userUid}/${start.format()}/food`);
 
     ref.push(this.state.food.find(item => item.id === this.state.selectedFoodId))
 
@@ -115,7 +120,7 @@ class Calendar extends Component {
   addExercise = () => {
     const userUid = firebase.auth().currentUser.uid;
     const start = moment(this.state.modalEvent.start);
-    const ref = firebase.database().ref(`/exercisesPlan/${userUid}/${start.format()}/exercises`);
+    const ref = firebase.database().ref(`/dietPlan/${userUid}/${start.format()}/exercises`);
 
     ref.push(this.state.exercises.find(item => item.id === this.state.selectedExerciseId))
 
@@ -145,16 +150,20 @@ class Calendar extends Component {
               <div>
                 <h1>Food</h1>
                 <Form.Group>
-                <Form.Select
-                  inline
-                  defaultValue='food'
-                  onChange={this.handleFoodChange}
-                  options={this.state.food.map(
-                    foodItem => ({ key: foodItem.id, value: foodItem.id, text: `${foodItem.name} (${foodItem.calories} kCal)` })
-                  )}
-                />
+                  <Form.Select
+                    inline
+                    defaultValue='food'
+                    onChange={this.handleFoodChange}
+                    options={this.state.food.map(
+                      foodItem => ({
+                        key: foodItem.id,
+                        value: foodItem.id,
+                        text: `${foodItem.name} (${foodItem.calories} kCal)`
+                      })
+                    )}
+                  />
 
-                <Form.Button inline color='black' onClick={this.addFood}>Add to list</Form.Button>
+                  <Form.Button  color='black' onClick={this.addFood}>Add to list</Form.Button>
                 </Form.Group>
                 <FoodList
                   key={moment(this.state.modalEvent.start).format()}
@@ -164,19 +173,22 @@ class Calendar extends Component {
 
               <div>
                 <h1>Exercises</h1>
+                <Form.Group>
+                  <Form.Select
+                    inline
+                    defaultValue='exercises'
+                    onChange={this.handleExercisesChange}
+                    options={this.state.exercises.map(
+                      exercisesItem => ({
+                        key: exercisesItem.id,
+                        value: exercisesItem.id,
+                        text: `${exercisesItem.name} (${exercisesItem.caloriesBurnt} kCal)`
+                      })
+                    )}
+                  />
 
-                <select onChange={this.handleExercisesChange} defaultValue='exercises'>
-
-                  <option disabled value='exercises'>Select exercises</option>
-                  {
-                    this.state.exercises.map(
-                      exerciseItem => <option value={exerciseItem.id}>{exerciseItem.name} ({exerciseItem.caloriesBurnt}
-                        kCal)</option>
-                    )
-                  }
-                </select>
-
-                <Button color='black' onClick={this.addExercise}>add</Button>
+                  <Form.Button inline color='black' onClick={this.addExercise}>Add to list</Form.Button>
+                </Form.Group>
 
                 <ExercisesList
                   key={moment(this.state.modalEvent.start).format()}
@@ -202,6 +214,7 @@ class Calendar extends Component {
               end: new Date(item.date)
             })
           )}
+
           defaultView="month"
           scrollToTime={new Date()}
           defaultDate={new Date()}

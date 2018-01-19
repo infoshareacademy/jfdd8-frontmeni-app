@@ -11,7 +11,7 @@ class ExercisesList extends Component {
 
   componentDidMount() {
     const userUid = firebase.auth().currentUser.uid;
-    firebase.database().ref(`/exercisesPlan/${userUid}/${(this.props.date)}/exercises`).on(
+    firebase.database().ref(`/dietPlan/${userUid}/${(this.props.date)}/exercises`).on(
       'value',
       snapshot => this.setState({
         exercisesList: Object.entries(snapshot.val() || {}).map(([id, value]) => ({

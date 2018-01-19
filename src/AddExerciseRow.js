@@ -1,18 +1,18 @@
 import React, {Component, Fragment} from 'react';
-import { Form } from 'semantic-ui-react'
+import {Form} from 'semantic-ui-react'
 
 class AddExerciseRow extends Component {
+  state = {
+    name: '',
+    caloriesBurnt: 0
+  };
+
   onClick = () => {
     this.props.onNewExerciseAdded(this.state);
     this.setState({
       name: '',
       caloriesBurnt: ''
     })
-  };
-
-  state = {
-    name: '',
-    caloriesBurnt: 0
   };
 
   handleChange = event => {
@@ -37,7 +37,7 @@ class AddExerciseRow extends Component {
           <td>
             <Form.Input
               type="number"
-              min="0"
+              min="1"
               onChange={this.handleChange}
               value={this.state.caloriesBurnt}
               name='caloriesBurnt'
