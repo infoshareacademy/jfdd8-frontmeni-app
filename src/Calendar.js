@@ -12,6 +12,8 @@ BigCalendar.setLocalizer(
   BigCalendar.momentLocalizer(moment)
 );
 
+let allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k]);
+
 const EventWrapper = props => {
 
   return (
@@ -196,7 +198,7 @@ class Calendar extends Component {
           </Modal.Content>
 
           <Modal.Actions>
-            <Button icon='check' content='ADD' onClick={this.closeModal}/>
+            <Button icon='check' content='Close' onClick={this.closeModal}/>
           </Modal.Actions>
 
         </Modal>}
