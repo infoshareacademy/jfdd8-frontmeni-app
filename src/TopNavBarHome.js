@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Menu } from 'semantic-ui-react'
 import logo from './app-logo/LO.png'
-import { Image, Button } from 'semantic-ui-react'
-import { Link, withRouter } from 'react-router-dom'
+import { Menu, Image } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom'
 import { signOut } from './state/auth';
 import { connect } from 'react-redux'
 
