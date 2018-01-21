@@ -39,12 +39,7 @@ class ExercisesList extends Component {
             this.state.exercisesList.map(
               exercisesItem => (
                 <li key={exercisesItem.id}>
-                  {
-                    exercisesItem.name} {
-                    (exercisesItem.caloriesBurnt)
-
-                  }
-
+                  {exercisesItem.name} ({(exercisesItem.caloriesBurnt)})
                   <button
                     data-task-id={exercisesItem.id}
                     onClick={this.handleRemoveClick}

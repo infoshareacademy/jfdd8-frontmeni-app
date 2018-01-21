@@ -36,7 +36,6 @@ class GoalsMenu extends Component {
     event.preventDefault();
     const userUid = firebase.auth().currentUser.uid;
     firebase.database().ref('/users/' + userUid).set({
-
       goal: this.state.goal,
       weight: this.state.weight,
     })
