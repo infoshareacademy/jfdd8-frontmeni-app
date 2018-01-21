@@ -55,7 +55,6 @@ class Calendar extends Component {
 
   closeModal = () => {
 
-    // ref.child('/exercises').push(this.state.selectedExercises)
     this.setState({
       showModal: false,
       selectedFood: [],
