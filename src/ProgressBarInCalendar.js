@@ -2,20 +2,26 @@ import React, { Component } from 'react'
 import {Progress, Button} from 'semantic-ui-react'
 
 
+const summary = props => {
+
 class ProgressBarInCalendar extends Component {
 
-  state = {percent: 0};
+    state = {
+        food: [],
+        exercises: [],
+        percent: 0
+    };
 
-  toggle = () => this.setState({percent: this.state.percent === 0 ? 100 : 0})
-
-  render() {
-    return (
-      <div>
-        <Progress percent={this.state.percent} autoSuccess/>
-        {/*<Button onClick={this.toggle}>Toggle Complete</Button>*/}
-      </div>
-    )
-  }
+        render()
+        {
+            return (
+                <div>
+                  <Progress percent={(props.event.food.reduce(
+                      (total, next) => total + parseFloat(next.calories), 0
+                  ) / 2000) * 100} autoSuccess/>
+                </div>
+            )
+        }
+    }
 }
-
 export default ProgressBarInCalendar
