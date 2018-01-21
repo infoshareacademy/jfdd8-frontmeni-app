@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
-// import ProgressBarInCalendar from './ProgressBarInCalendar'
+import ProgressBarInCalendar from './ProgressBarInCalendar'
 import {Modal, Button, Progress, Form} from 'semantic-ui-react'
 import firebase from 'firebase'
 import FoodList from './FoodList'
@@ -11,7 +11,6 @@ import ExercisesList from "./ExercisesList"
 BigCalendar.setLocalizer(
   BigCalendar.momentLocalizer(moment)
 );
-
 
 const EventWrapper = props => {
 
@@ -31,6 +30,7 @@ const EventWrapper = props => {
   )
 };
 
+
 class Calendar extends Component {
 
   state = {
@@ -44,7 +44,6 @@ class Calendar extends Component {
     selectedFoodId: null,
     selectedExerciseId: null,
     dietPlan: [],
-
   };
 
   openModal = event => {
@@ -56,6 +55,7 @@ class Calendar extends Component {
 
   closeModal = () => {
 
+    // ref.child('/exercises').push(this.state.selectedExercises)
     this.setState({
       showModal: false,
       selectedFood: [],
@@ -127,6 +127,7 @@ class Calendar extends Component {
   render() {
     return (
       <div style={{height: 'auto'}}>
+        <ProgressBarInCalendar/>
         {this.state.modalEvent && <Modal
           dimmer={false}
           open={this.state.showModal}
@@ -196,7 +197,7 @@ class Calendar extends Component {
           </Modal.Content>
 
           <Modal.Actions>
-            <Button icon='check' content='Close' onClick={this.closeModal}/>
+            <Button icon='check' content='ADD' onClick={this.closeModal}/>
           </Modal.Actions>
 
         </Modal>}
