@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import firebase from 'firebase'
+import { Button } from 'semantic-ui-react'
 
 
 class ExercisesList extends Component {
@@ -25,7 +26,7 @@ class ExercisesList extends Component {
   handleRemoveClick = event => {
     const exercisesItem = event.target.dataset.exercisesItem;
     const userUid = firebase.auth().currentUser.uid;
-    firebase.database().ref(`/dietPlan/${userUid}/${(this.props.date)}/exercises` + exercisesItem).remove()
+    firebase.database().ref(`/dietPlan/${userUid}/${(this.props.date)}/exercises` + '/' + exercisesItem).remove()
   };
 
 
@@ -40,12 +41,12 @@ class ExercisesList extends Component {
               exercisesItem => (
                 <li key={exercisesItem.id}>
                   {exercisesItem.name} ({(exercisesItem.caloriesBurnt)})
-                  <button
+                  <Button
                     data-task-id={exercisesItem.id}
                     onClick={this.handleRemoveClick}
                   >
                     Remove
-                  </button>
+                  </Button>
 
                 </li>
               )
