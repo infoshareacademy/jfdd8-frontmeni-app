@@ -184,9 +184,9 @@ class Calendar extends Component {
                         value: exercisesItem.id,
                         text: `${exercisesItem.name} (${exercisesItem.caloriesBurnt} kCal)`
                       })
+
                     )}
                   />
-
                   <Form.Button inline color='black' onClick={this.addExercise}>Add to list</Form.Button>
                 </Form.Group>
 

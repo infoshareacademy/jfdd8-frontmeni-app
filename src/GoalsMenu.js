@@ -12,21 +12,10 @@ const goalOptions = [
 class GoalsMenu extends Component {
 
   state = {
-    goal: '',
-    weight: 0
-  };
+    goal: null,
+    weight: 0,
 
-  handleChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value
-    })
   };
-
-  handleSubmit = event => {
-    event.preventDefault();
-    // ToDo: implement me
-  };
-
 
   componentDidMount() {
     const userUid = firebase.auth().currentUser.uid;
@@ -36,8 +25,25 @@ class GoalsMenu extends Component {
     });
   }
 
+
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    const userUid = firebase.auth().currentUser.uid;
+    firebase.database().ref('/users/' + userUid).set({
+
+      goal: this.state.goal,
+      weight: this.state.weight,
+    })
+  };
+
   render() {
-    console.log('render', this.state.weight);
+    console.log('render', this.state.goal);
     return (
       <div className='login-form'>
         <TopNavBar title="Settings / Set my goals"/>
@@ -74,7 +80,12 @@ class GoalsMenu extends Component {
                   onChange={this.handleChange}
                 />
 
-                <Button className='button-style' color='black' fluid size='large'>Save</Button>
+                <Button
+                  onClick={this.handleSubmit}
+                  className='button-style'
+                  color='black'
+                  fluid size='large'
+                >Save</Button>
               </Segment>
             </Form>
             <Button onClick={() => firebase.auth().signOut()} className='button-style' color='red' fluid size='large'>Log out</Button>
