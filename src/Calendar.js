@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
-import ProgressBarInCalendar from './ProgressBarInCalendar'
+// import ProgressBarInCalendar from './ProgressBarInCalendar'
 import {Modal, Button, Progress, Form} from 'semantic-ui-react'
 import firebase from 'firebase'
 import FoodList from './FoodList'
@@ -32,7 +32,15 @@ const EventWrapper = props => {
   )
 };
 
-
+const summaryBar = props => {
+    return (
+        <div>
+            <Progress percent={(props.event.food.reduce(
+                (total, next) => total + parseFloat(next.calories), 0
+            ) / 2000) * 100} autoSuccess/>
+        </div>
+    )
+}
 class Calendar extends Component {
 
   state = {
@@ -129,7 +137,7 @@ class Calendar extends Component {
   render() {
     return (
       <div style={{height: 'auto'}}>
-        <ProgressBarInCalendar/>
+          {summaryBar}
         {this.state.modalEvent && <Modal
           dimmer={false}
           open={this.state.showModal}
@@ -199,7 +207,7 @@ class Calendar extends Component {
           </Modal.Content>
 
           <Modal.Actions>
-            <Button icon='check' content='ADD' onClick={this.closeModal}/>
+            <Button icon='check' content='Close' onClick={this.closeModal}/>
           </Modal.Actions>
 
         </Modal>}
