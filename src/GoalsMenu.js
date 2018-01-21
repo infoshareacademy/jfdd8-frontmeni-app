@@ -12,8 +12,8 @@ const goalOptions = [
 class GoalsMenu extends Component {
 
   state = {
-    goal: null,
-    weight: null
+    goal: '',
+    weight: 0
   };
 
   handleChange = event => {

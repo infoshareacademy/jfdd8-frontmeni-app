@@ -12,7 +12,7 @@ class ProgressBarInCalendar extends Component {
     return (
       <div>
         <Progress percent={this.state.percent} autoSuccess/>
-        <Button onClick={this.toggle}>Toggle Complete</Button>
+        {/*<Button onClick={this.toggle}>Toggle Complete</Button>*/}
       </div>
     )
   }
