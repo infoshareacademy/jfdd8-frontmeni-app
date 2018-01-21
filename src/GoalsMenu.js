@@ -12,7 +12,7 @@ const goalOptions = [
 class GoalsMenu extends Component {
 
   state = {
-    goal: null,
+    goal: '',
     weight: 0,
 
   };
@@ -35,11 +35,16 @@ class GoalsMenu extends Component {
   handleSubmit = event => {
     event.preventDefault();
     const userUid = firebase.auth().currentUser.uid;
-    firebase.database().ref('/users/' + userUid).set({
+    firebase.database().ref('/users/' + userUid + '/').update({
       goal: this.state.goal,
       weight: this.state.weight,
     })
   };
+
+  handleSubmitChange = event => {
+    console.log(event)
+
+  }
 
   render() {
     console.log('render', this.state.goal);
@@ -76,7 +81,7 @@ class GoalsMenu extends Component {
                   value={this.state.goal}
                   placeholder='My goal'
                   options={goalOptions}
-                  onChange={this.handleChange}
+                  onChange={this.handleSubmitChange}
                 />
 
                 <Button
