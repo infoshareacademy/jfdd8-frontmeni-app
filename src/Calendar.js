@@ -12,8 +12,6 @@ BigCalendar.setLocalizer(
   BigCalendar.momentLocalizer(moment)
 );
 
-let allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k]);
-
 const EventWrapper = props => {
 
   return (
@@ -57,7 +55,6 @@ class Calendar extends Component {
 
   closeModal = () => {
 
-    // ref.child('/exercises').push(this.state.selectedExercises)
     this.setState({
       showModal: false,
       selectedFood: [],
@@ -219,7 +216,7 @@ class Calendar extends Component {
           defaultDate={new Date()}
           onSelectEvent={event => this.openModal(event)}
           onSelectSlot={event => this.openModal(event)}
-          views={allViews}
+          views={['month']}
           components={{
             eventWrapper: EventWrapper
           }}
