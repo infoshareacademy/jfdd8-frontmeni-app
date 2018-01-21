@@ -4,17 +4,24 @@ import logo from '../../app-logo/LO.png'
 import { connect } from 'react-redux'
 import { signUp } from '../../state/auth';
 
-const countryOptions = [
-  {key: 'pl', value: 'pl', flag: 'pl', text: 'Polska'},
-  {key: 'gb', value: 'gb', flag: 'gb', text: 'United Kingdom'},
-  {key: 'ru', value: 'ru', flag: 'ru', text: 'Россия'},
-  {key: 'us', value: 'us', flag: 'us', text: 'USA'},
-  {key: 'eu', value: 'eu', flag: 'eu', text: 'Europe'},
-  {key: 'jp', value: 'jp', flag: 'jp', text: '日本国'}
+// const countryOptions = [
+//   {key: 'pl', value: 'pl', flag: 'pl', text: 'Polska'},
+//   {key: 'gb', value: 'gb', flag: 'gb', text: 'United Kingdom'},
+//   {key: 'ru', value: 'ru', flag: 'ru', text: 'Россия'},
+//   {key: 'us', value: 'us', flag: 'us', text: 'USA'},
+//   {key: 'eu', value: 'eu', flag: 'eu', text: 'Europe'},
+//   {key: 'jp', value: 'jp', flag: 'jp', text: '日本国'}
+// ];
+// const genderOptions = [
+//   {key: 'm', text: 'Male', value: 'male'},
+//   {key: 'f', text: 'Female', value: 'female'}
+// ];
+
+const goalOptions = [
+  {key: 't', text: 'Lose weight', value: 'lose'},
+  {key: 'f', text: 'Gain weight', value: 'gain'}
 ];
-const genderOptions = [
-  {key: 'm', text: 'Male', value: 'male'},
-  {key: 'f', text: 'Female', value: 'female'}];
+
 
 class ProfileCreator extends Component {
 
@@ -34,16 +41,9 @@ class ProfileCreator extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    const regex = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/
+    // const regex = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/
 
     const { email, password, error, ...other} = this.state;
-
-    if (!other.birth.match(regex)) {
-      this.setState({
-        error: 'Date format is day/month/year!'
-      });
-      return
-    }
 
     this.props.signUp(
       email,
@@ -103,23 +103,23 @@ class ProfileCreator extends Component {
                   onChange={this.handleChange}
                   name="password"
                 />
-                <Form.Select
-                  fluid
-                  placeholder='Gender'
-                  options={genderOptions}
-                  onChange={this.handleChange}
-                  name="gender"
-                />
-                <Form.Input
-                  fluid
-                  placeholder='Height in [cm]'
-                  onChange={this.handleChange}
-                  name="height"
-                  type='number'
-                  min='0'
-                  max='300'
-                  required
-                />
+                {/*<Form.Select*/}
+                  {/*fluid*/}
+                  {/*placeholder='Gender'*/}
+                  {/*options={genderOptions}*/}
+                  {/*onChange={this.handleChange}*/}
+                  {/*name="gender"*/}
+                {/*/>*/}
+                {/*<Form.Input*/}
+                  {/*fluid*/}
+                  {/*placeholder='Height in [cm]'*/}
+                  {/*onChange={this.handleChange}*/}
+                  {/*name="height"*/}
+                  {/*type='number'*/}
+                  {/*min='0'*/}
+                  {/*max='300'*/}
+                  {/*required*/}
+                {/*/>*/}
                 <Form.Input
                   fluid
                   placeholder='Weight in [kg]'
@@ -131,19 +131,26 @@ class ProfileCreator extends Component {
                   required
                 />
                 <Form.Select
-                  placeholder='Country'
-                  options={countryOptions}
-                  onChange={this.handleChange}
-                  name="country"
-                />
-                <Form.Input
                   fluid
-                  placeholder='Date of
-                  birth [dd/mm/yyyy]'
+                  placeholder='My goal'
+                  options={goalOptions}
                   onChange={this.handleChange}
-                  name="birth"
-                  required
+                  name="goal"
                 />
+                {/*<Form.Select*/}
+                  {/*placeholder='Country'*/}
+                  {/*options={countryOptions}*/}
+                  {/*onChange={this.handleChange}*/}
+                  {/*name="country"*/}
+                {/*/>*/}
+                {/*<Form.Input*/}
+                  {/*fluid*/}
+                  {/*placeholder='Date of*/}
+                  {/*birth [dd/mm/yyyy]'*/}
+                  {/*onChange={this.handleChange}*/}
+                  {/*name="birth"*/}
+                  {/*required*/}
+                {/*/>*/}
                 <Button className='button-style' color='black' fluid size='large'>Register</Button>
               </Segment>
             </Form>

@@ -186,7 +186,6 @@ class Calendar extends Component {
                       })
                     )}
                   />
-
                   <Form.Button inline color='black' onClick={this.addExercise}>Add to list</Form.Button>
                 </Form.Group>
 

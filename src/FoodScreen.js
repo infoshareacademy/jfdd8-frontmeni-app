@@ -56,7 +56,7 @@ class FoodScreen extends Component {
                   key={food.id}
                   id={food.id}
                   name={food.name}
-                  calories={food.calories}
+                  calories={food.calories + ' (kcal)'}
                   removeFood={this.removeFood}
                 />
               )

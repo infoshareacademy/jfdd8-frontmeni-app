@@ -54,7 +54,7 @@ class ExercisesScreen extends Component {
                 key={exercise.id}
                 id={exercise.id}
                 name={exercise.name}
-                caloriesBurnt={exercise.caloriesBurnt}
+                caloriesBurnt={exercise.caloriesBurnt + ' (kcal)'}
               />
             )
           )}

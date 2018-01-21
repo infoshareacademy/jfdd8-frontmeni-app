@@ -4,17 +4,27 @@ import firebase from 'firebase'
 import TopNavBar from "./TopNavBar";
 
 const goalOptions = [
-  {key: 't', text: 'Lose weight', value: 'male'},
-  {key: 'f', text: 'Gain weight', value: 'female'}];
+  {key: 't', text: 'Lose weight', value: 'lose'},
+  {key: 'f', text: 'Gain weight', value: 'gain'}
+];
 
 
 class GoalsMenu extends Component {
 
   state = {
-    email: '',
-    password: '',
-    error: null
+    goal: null,
+    weight: 0,
+
   };
+
+  componentDidMount() {
+    const userUid = firebase.auth().currentUser.uid;
+
+    firebase.database().ref(`/users/${userUid}`).on('value', snapshot => {
+      this.setState(snapshot.val());
+    });
+  }
+
 
   handleChange = event => {
     this.setState({
@@ -24,20 +34,15 @@ class GoalsMenu extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-
-    this.props.signIn(
-      this.state.email,
-      this.state.password
-    ).catch(
-      error => {
-        this.setState({
-            error: error.message
-          }
-        );
-      }
-    )
+    const userUid = firebase.auth().currentUser.uid;
+    firebase.database().ref('/users/' + userUid).set({
+      goal: this.state.goal,
+      weight: this.state.weight,
+    })
   };
+
   render() {
+    console.log('render', this.state.goal);
     return (
       <div className='login-form'>
         <TopNavBar title="Settings / Set my goals"/>
@@ -57,6 +62,7 @@ class GoalsMenu extends Component {
               <Segment>
                 <Form.Input
                   fluid
+                  value={this.state.weight}
                   placeholder='Weight in [kg]'
                   onChange={this.handleChange}
                   name="weight"
@@ -67,12 +73,18 @@ class GoalsMenu extends Component {
                 />
                 <Form.Select
                   fluid
+                  value={this.state.goal}
                   placeholder='My goal'
                   options={goalOptions}
                   onChange={this.handleChange}
                 />
 
-                <Button className='button-style' color='black' fluid size='large'>Enter</Button>
+                <Button
+                  onClick={this.handleSubmit}
+                  className='button-style'
+                  color='black'
+                  fluid size='large'
+                >Save</Button>
               </Segment>
             </Form>
             <Button onClick={() => firebase.auth().signOut()} className='button-style' color='red' fluid size='large'>Log out</Button>
