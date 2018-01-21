@@ -13,7 +13,7 @@ import { connect } from 'react-redux'
     return (
       <Menu stackable>
         <Menu.Item>
-          <Button as={Link} to={'/'} name='arrow left'>Go back</Button>
+          <Icon as={Link} to={'/'} name='arrow left'>Go back</Icon>
         </Menu.Item>
         <Menu.Item>
           <Image src={logo} size='tiny' floated='left' />

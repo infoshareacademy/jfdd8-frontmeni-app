@@ -47,7 +47,6 @@ class GoalsMenu extends Component {
     })
   };
   render() {
-    console.log('render', this.state.goal);
     return (
       <div className='login-form'>
         <TopNavBarGoals title="Settings / Set my goals"/>

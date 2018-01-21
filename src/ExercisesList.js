@@ -24,7 +24,7 @@ class ExercisesList extends Component {
   handleRemoveClick = event => {
     const exercisesItem = event.target.dataset.exercisesItem;
     const userUid = firebase.auth().currentUser.uid;
-    firebase.database().ref(`/dietPlan/${userUid}/${(this.props.date)}/exercises` + '/' + exercisesItem).remove()
+    firebase.database().ref(`/dietPlan/${userUid}/${(this.props.date)}/exercises` + exercisesItem).remove()
   };
 
   render() {
