@@ -34,3 +34,8 @@ body > div > div > div.login-form {
 .modalList > * {
   flex-grow: 1;
 }
+
+.app-header {
+ font-size: 20px;
+
+}
