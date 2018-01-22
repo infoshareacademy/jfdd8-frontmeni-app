@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import firebase from 'firebase'
-import { Button } from 'semantic-ui-react'
+import {  Icon, Menu } from 'semantic-ui-react'
 
 
 class ExercisesList extends Component {
@@ -38,12 +38,13 @@ class ExercisesList extends Component {
               exercisesItem => (
                 <li key={exercisesItem.id}>
                   {exercisesItem.name} ({(exercisesItem.caloriesBurnt)})
-                  <Button
+
+                  <Menu.Item style = {{display: 'inline-block'}}>
+                  <Icon size='large' color='black' name='trash'
                     data-exercises-item={exercisesItem.id}
-                    onClick={this.handleRemoveClick}
-                  >
-                    Remove
-                  </Button>
+                    onClick={this.handleRemoveClick}>
+                  </Icon>
+                  </Menu.Item>
 
                 </li>
               )
