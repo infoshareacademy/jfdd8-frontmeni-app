@@ -43,3 +43,9 @@ body > div > div > div.login-form {
 .li {
   list-style-type: square;
 }
+.modalSelect {
+  display: inline-block;
+}
+.modalButton {
+  display: inline-block;
+}
