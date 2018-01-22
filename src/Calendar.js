@@ -141,7 +141,7 @@ class Calendar extends Component {
           </Modal.Header>
 
           <Modal.Content>
-            <p>Choose and add your daily elements</p>
+            <p style={{textAlign: 'center', fontWeight: 'bold', fontSize: '18px'}}>Choose and add your daily elements</p>
 
             <div className="modalList">
               <div>
