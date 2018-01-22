@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import firebase from 'firebase'
-import { Button } from 'semantic-ui-react'
+import {  Icon, Menu } from 'semantic-ui-react'
 
 
 class ExercisesList extends Component {
@@ -9,26 +9,23 @@ class ExercisesList extends Component {
     exercisesList: []
   };
 
-
   componentDidMount() {
     const userUid = firebase.auth().currentUser.uid;
     firebase.database().ref(`/dietPlan/${userUid}/${(this.props.date)}/exercises`).on(
       'value',
       snapshot => this.setState({
         exercisesList: Object.entries(snapshot.val() || {}).map(([id, value]) => ({
-          id, ...value
+          ...value, id
         }))
       })
     )
   }
 
-
   handleRemoveClick = event => {
     const exercisesItem = event.target.dataset.exercisesItem;
     const userUid = firebase.auth().currentUser.uid;
-    firebase.database().ref(`/dietPlan/${userUid}/${(this.props.date)}/exercises` + '/' + exercisesItem).remove()
+    firebase.database().ref(`/dietPlan/${userUid}/${(this.props.date)}/exercises/` + exercisesItem).remove()
   };
-
 
   render() {
 
@@ -41,12 +38,13 @@ class ExercisesList extends Component {
               exercisesItem => (
                 <li key={exercisesItem.id}>
                   {exercisesItem.name} ({(exercisesItem.caloriesBurnt)})
-                  <Button
-                    data-task-id={exercisesItem.id}
-                    onClick={this.handleRemoveClick}
-                  >
-                    Remove
-                  </Button>
+
+                  <Menu.Item style = {{display: 'inline-block'}}>
+                  <Icon size='large' color='black' name='trash'
+                    data-exercises-item={exercisesItem.id}
+                    onClick={this.handleRemoveClick}>
+                  </Icon>
+                  </Menu.Item>
 
                 </li>
               )

@@ -150,6 +150,7 @@ class Calendar extends Component {
                 <h1>Food</h1>
                 <Form.Group>
                   <Form.Select
+                    className='modalSelect'
                     inline
                     defaultValue='food'
                     onChange={this.handleFoodChange}
@@ -162,7 +163,7 @@ class Calendar extends Component {
                     )}
                   />
 
-                  <Form.Button  color='black' onClick={this.addFood}>Add to list</Form.Button>
+                  <Form.Button className='modalButton' color='black' onClick={this.addFood}>Add to list</Form.Button>
                 </Form.Group>
                 <FoodList
                   key={moment(this.state.modalEvent.start).format()}
@@ -174,6 +175,7 @@ class Calendar extends Component {
                 <h1>Exercises</h1>
                 <Form.Group>
                   <Form.Select
+                    className='modalSelect'
                     inline
                     defaultValue='exercises'
                     onChange={this.handleExercisesChange}
@@ -183,9 +185,11 @@ class Calendar extends Component {
                         value: exercisesItem.id,
                         text: `${exercisesItem.name} (${exercisesItem.caloriesBurnt} kCal)`
                       })
+
                     )}
                   />
-                  <Form.Button inline color='black' onClick={this.addExercise}>Add to list</Form.Button>
+
+                  <Form.Button className='modalButton' inline color='black' onClick={this.addExercise}>Add to list</Form.Button>
                 </Form.Group>
 
                 <ExercisesList

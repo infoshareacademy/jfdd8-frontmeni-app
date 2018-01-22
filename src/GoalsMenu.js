@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 import firebase from 'firebase'
-import TopNavBar from "./TopNavBar";
+import TopNavBarGoals from "./TopNavBarGoals";
 
 const goalOptions = [
   {key: 't', text: 'Lose weight', value: 'lose'},
@@ -41,21 +41,20 @@ class GoalsMenu extends Component {
     })
   };
 
-  handleSubmitChange = event => {
-    console.log(event)
-
-  }
-
+  handleSelectChange = (event, { name, value }) => {
+    this.setState({
+      [event.target.name || name]: event.target.value || value
+    })
+  };
   render() {
-    console.log('render', this.state.goal);
     return (
       <div className='login-form'>
-        <TopNavBar title="Settings / Set my goals"/>
+        <TopNavBarGoals title="Settings / Set my goals"/>
         <Grid
           textAlign='center'
           style={{ height: '100%' }}
-          verticalAlign='middle'
-        >
+          verticalAlign='middle'>
+
           <Grid.Column style={{ maxWidth: 450 }}>
 
             <Header as='h2' textAlign='center' className='login-header'>
@@ -81,11 +80,11 @@ class GoalsMenu extends Component {
                   value={this.state.goal}
                   placeholder='My goal'
                   options={goalOptions}
-                  onChange={this.handleSubmitChange}
+                  onChange={this.handleSelectChange}
+                  name='goal'
                 />
 
                 <Button
-                  onClick={this.handleSubmit}
                   className='button-style'
                   color='black'
                   fluid size='large'
