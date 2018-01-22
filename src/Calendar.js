@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
-import ProgressBarInCalendar from './ProgressBarInCalendar'
 import {Modal, Button, Progress, Form} from 'semantic-ui-react'
 import firebase from 'firebase'
 import FoodList from './FoodList'
@@ -128,7 +127,6 @@ class Calendar extends Component {
   render() {
     return (
       <div style={{height: 'auto'}}>
-        <ProgressBarInCalendar/>
         {this.state.modalEvent && <Modal
           dimmer={false}
           open={this.state.showModal}

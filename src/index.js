@@ -4,8 +4,7 @@ import {Provider} from 'react-redux'
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-
+  Route
 } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -18,6 +17,7 @@ import ExercisesScreen from "./ExercisesScreen";
 import SettingsScreen from "./SettingsScreen";
 import GoalsMenu from "./GoalsMenu"
 import Auth from "./components/Auth";
+
 
 ReactDOM.render(
   <Provider store={store}>
