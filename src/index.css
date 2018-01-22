@@ -36,6 +36,10 @@ body > div > div > div.login-form {
 }
 
 .app-header {
- font-size: 20px;
+ font-size: 18px;
 
+}
+
+.li {
+  list-style-type: square;
 }
