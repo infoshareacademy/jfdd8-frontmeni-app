@@ -15,7 +15,7 @@ class ExercisesList extends Component {
       'value',
       snapshot => this.setState({
         exercisesList: Object.entries(snapshot.val() || {}).map(([id, value]) => ({
-          id, ...value
+          ...value, id
         }))
       })
     )
@@ -24,7 +24,7 @@ class ExercisesList extends Component {
   handleRemoveClick = event => {
     const exercisesItem = event.target.dataset.exercisesItem;
     const userUid = firebase.auth().currentUser.uid;
-    firebase.database().ref(`/dietPlan/${userUid}/${(this.props.date)}/exercises` + exercisesItem).remove()
+    firebase.database().ref(`/dietPlan/${userUid}/${(this.props.date)}/exercises/` + exercisesItem).remove()
   };
 
   render() {
@@ -39,7 +39,7 @@ class ExercisesList extends Component {
                 <li key={exercisesItem.id}>
                   {exercisesItem.name} ({(exercisesItem.caloriesBurnt)})
                   <Button
-                    data-task-id={exercisesItem.id}
+                    data-exercises-item={exercisesItem.id}
                     onClick={this.handleRemoveClick}
                   >
                     Remove
