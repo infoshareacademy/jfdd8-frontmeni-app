@@ -10,9 +10,15 @@ class TopNavBarHome extends Component {
 
   render() {
     return (
-        <Menu stackable>
+        <Menu borderless stackable>
           <Menu.Item>
-            <Image src={logo} size='tiny' floated='left' />
+            <Image src={logo} size='tiny' position='left' floated='left' />
+          </Menu.Item>
+          <Menu.Item className='app-header' fixed='center'>
+          Slow progress is better than no progress!
+          </Menu.Item>
+          <Menu.Item position='right'>
+            {this.props.user && this.props.user.email}
           </Menu.Item>
         </Menu>
     )
